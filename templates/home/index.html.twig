@@ -6,51 +6,52 @@
 
     {% block body %}
 
-<div class="example-wrapper">
-    <h1>Accueil</h1>
-    <p> Site fictif</p>
-</div>
-
-{# *************************************************** Section actualitées Alternance ************************************************** #}
-<div>
     <div class="example-wrapper">
-        <h2>Les actu alternances</h2>
+        <h1>Accueil</h1>
+        <p> Site fictif</p>
     </div>
 
-    <div class="row row-cols-1 row-cols-md-4 g-4">
+    {# *************************************************** Section actualitées Alternance ************************************************** #}
+    <div class="container my-5">
+        <div class="example-wrapper">
+            <h2>Les actu alternances</h2>
+        </div>
 
-        {# ********************* Les cards ****************** #}
-        {% for i in 1..6 %}
-            <div class="col">
-                <twig:BootstrapCard
-                    title="Annonce"
-                    imgSrc="https://picsum.photos/seed/{{i}}/200/200"
-                    btnLink=""
-                    btnLabel="Détails"
-                >
-                </twig:BootstrapCard>
-            </div>
-        {% endfor %}
-    </div>
-</div>
+        <div class="row row-cols-1 row-cols-md-4 g-4">
 
-{# ***************************************************** Section actualitées stage ****************************************************** #}
-<div>
-    <div class="example-wrapper">
-        <h2>Les actu stages</h2>
+            {# ********************* Les cards ****************** #}
+            {% for i in 1..8 %}
+                <div class="col">
+                    <twig:BootstrapCard
+                        title="Annonce"
+                        imgSrc="https://picsum.photos/seed/{{i}}/200/200"
+                        btnLink=""
+                        btnLabel="Détails"
+                    >
+                    </twig:BootstrapCard>
+                </div>
+            {% endfor %}
+        </div>
     </div>
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-         {% for i in 1..6 %}
-            <div class="col">
-                <twig:BootstrapCard
-                    title="Annonce"
-                    imgSrc="https://picsum.photos/seed/{{i}}/200/200"
-                    btnLink=""
-                    btnLabel="Détails"
-                >
-                </twig:BootstrapCard>
-            </div>
-        {% endfor %}
+
+    {# ***************************************************** Section actualitées stage ****************************************************** #}
+    <div class="container my-5">
+        <div class="example-wrapper">
+            <h2>Les actu stages</h2>
+        </div>
+
+        <div class="row row-cols-1 row-cols-md-4 g-4">
+            {% for i in 1..8 %}
+                <div class="col">
+                    <twig:BootstrapCard
+                        title="Annonce"
+                        imgSrc="https://picsum.photos/seed/{{i}}/200/200"
+                        btnLink=""
+                        btnLabel="Détails"
+                    >
+                    </twig:BootstrapCard>
+                </div>
+            {% endfor %}
+        </div>
     </div>
-</div>
 {% endblock %}

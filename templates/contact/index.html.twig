@@ -3,8 +3,43 @@
 {% block title %}Hello ContactController!{% endblock %}
 
 {% block body %}
-<div class="example-wrapper">
-    <h1>Contact</h1>
-    <p> Site fictif</p>
-</div>
+    <div class="example-wrapper">
+        <h1>Contact</h1>
+        <p> Site fictif</p>
+    </div>
+    <!-- Contact Section -->
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-lg-6">
+                <h2>Contactez-nous</h2>
+                <p>Si vous avez des questions ou besoin d'informations supplémentaires, n'hésitez pas à nous contacter via le formulaire ci-dessous ou par téléphone.</p>
+
+                <!-- Contact Information -->
+                <ul class="list-unstyled">
+                <li><i class="fas fa-phone"></i> Téléphone : 01 23 45 67 89</li>
+                <li><i class="fas fa-envelope"></i> Email : contact@alternastageconnect.com</li>
+                <li><i class="fas fa-map-marker-alt"></i> Adresse : 123 Rue de l'Innovation, 67000 Strasbourg</li>
+                </ul>
+            </div>
+
+            <div class="col-lg-6">
+                <h3>Formulaire de Contact</h3>
+                <form action="votre_script_de_traitement.php" method="post">
+                <div class="form-group">
+                    <label for="nom">Nom</label>
+                    <input type="text" class="form-control" id="nom" name="nom" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Envoyer</button>
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock %}
