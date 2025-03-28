@@ -12,12 +12,14 @@
     </a>
 
      {# ************************ navbarre *****************************#}
-      <div class="navbar-nav">
-        <a class="nav-link active" aria-current="page" href="{{ path('app_home') }}">Accueil</a>
+      <div class="navbar-nav"> 
+
+        {# test si la valeur est vraie mettre en gras le texte si faut rien #}
+        <a class="nav-link {{ app.current_route == 'app_home' ? 'active' : '' }}" aria-current="page" href="{{ path('app_home') }}">Accueil</a>
         <a class="nav-link" href="#">A propos</a>
         <a class="nav-link" href="#">Alternances</a>
         <a class="nav-link" href="#">Stages</a>
-        <a class="nav-link" href="{{ path('app_dashboard') }}">Tableau de bord</a>
+        <a class="nav-link {{ app.current_route == 'app_dashboard' ? 'active' : '' }}"  href="{{ path('app_dashboard') }}">Tableau de bord</a>
         <a class="nav-link" href="#">Contact</a>
 
       </div>

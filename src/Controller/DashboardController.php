@@ -15,7 +15,7 @@ final class DashboardController extends AbstractController
         // URL de la forme : localhost:8000/dashboard?lastpictures=3
         // dd($request); // Debugband Die d'une variable, affiche les détails et coupe l'exécution du code => var_dump(...) die;
         $intLastPictures = $request->query->get('lastpictures',10);// valeur par défault 10
-        dd($intLastPictures);
+        // dd($intLastPictures);
         return $this->render('dashboard/index.html.twig', [
             'controller_name' => 'DashboardController',
         ]);
