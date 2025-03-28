@@ -1,0 +1,3 @@
+{% macro nav_link(label, route) %}
+    <a class="nav-link {{ app.current_route == route ? 'active' : '' }}" aria-current="page" href="{{ path(route) }}">{{label}}</a>
+{% endmacro %}

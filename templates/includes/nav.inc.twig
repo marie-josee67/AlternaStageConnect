@@ -1,3 +1,6 @@
+{# importation de la marco pour le fonctionnement des liens #}
+{% from 'macros/navlink.macro.twig' import nav_link %}
+
 {# ************************************* Fichier Navbarre **************************************** #}
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
@@ -13,15 +16,12 @@
 
      {# ************************ navbarre *****************************#}
       <div class="navbar-nav"> 
-
-        {# test si la valeur est vraie mettre en gras le texte si faut rien #}
-        <a class="nav-link {{ app.current_route == 'app_home' ? 'active' : '' }}" aria-current="page" href="{{ path('app_home') }}">Accueil</a>
-        <a class="nav-link {{ app.current_route == 'app_apropos' ? 'active' : '' }}"  href="{{ path('app_apropos') }}">A propos</a>
-        <a class="nav-link {{ app.current_route == 'app_alternances' ? 'active' : '' }}"  href="{{ path('app_alternances') }}">Alternances</a>
-        <a class="nav-link {{ app.current_route == 'app_stages' ? 'active' : '' }}"  href="{{ path('app_stages') }}">Stages</a>
-        <a class="nav-link {{ app.current_route == 'app_dashboard' ? 'active' : '' }}"  href="{{ path('app_dashboard') }}">Tableau de bord</a>
-        <a class="nav-link {{ app.current_route == 'app_contact' ? 'active' : '' }}"  href="{{ path('app_contact') }}">Contact</a>
-
+        {{nav_link('Accueil','app_home' )}}
+        {{nav_link('A propos','app_apropos' )}}
+        {{nav_link('Alternances','app_alternances' )}}
+        {{nav_link('Stages','app_stages' )}}
+        {{nav_link('Tableau de bord','app_dashboard' )}}
+        {{nav_link('Contact','app_contact' )}}
       </div>
     </div>
   </div>
