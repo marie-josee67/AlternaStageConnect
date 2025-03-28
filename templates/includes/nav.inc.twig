@@ -16,11 +16,11 @@
 
         {# test si la valeur est vraie mettre en gras le texte si faut rien #}
         <a class="nav-link {{ app.current_route == 'app_home' ? 'active' : '' }}" aria-current="page" href="{{ path('app_home') }}">Accueil</a>
-        <a class="nav-link" href="#">A propos</a>
-        <a class="nav-link" href="#">Alternances</a>
-        <a class="nav-link" href="#">Stages</a>
+        <a class="nav-link {{ app.current_route == 'app_apropos' ? 'active' : '' }}"  href="{{ path('app_apropos') }}">A propos</a>
+        <a class="nav-link {{ app.current_route == 'app_alternances' ? 'active' : '' }}"  href="{{ path('app_alternances') }}">Alternances</a>
+        <a class="nav-link {{ app.current_route == 'app_stages' ? 'active' : '' }}"  href="{{ path('app_stages') }}">Stages</a>
         <a class="nav-link {{ app.current_route == 'app_dashboard' ? 'active' : '' }}"  href="{{ path('app_dashboard') }}">Tableau de bord</a>
-        <a class="nav-link" href="#">Contact</a>
+        <a class="nav-link {{ app.current_route == 'app_contact' ? 'active' : '' }}"  href="{{ path('app_contact') }}">Contact</a>
 
       </div>
     </div>
