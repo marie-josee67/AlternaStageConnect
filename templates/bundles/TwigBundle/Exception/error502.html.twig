@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}502 | Problème de passerelle, comme un CV qui ne passe pas les filtres{% endblock %}
+
+{% block body %}
+    <div style="text-align: center; margin-top: 50px;">
+        <h1>502 - Oups, la passerelle a craqué...</h1>
+        <p>Le serveur n'a pas réussi à se connecter à cette page, tout comme un recruteur qui n'a jamais vu ton e-mail. 😅</p>
+        <img src="https://media.giphy.com/media/xT0xekFw5p7y2v0M9C/giphy.gif" alt="Passerelle en panne" style="width: 200px; height: auto; margin-top: 20px;">
+        <p>Pas de panique, tout va se remettre en place !</p>
+        <a href="{{ path('app_home') }}" style="display: inline-block; margin-top: 20px; padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">Retour à l'accueil, on réessaie !</a>
+    </div>
+{% endblock %}

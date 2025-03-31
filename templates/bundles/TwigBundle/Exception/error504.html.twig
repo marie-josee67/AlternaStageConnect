@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}504 | Délai d'attente dépassé, comme une réponse de stage qui tarde trop{% endblock %}
+
+{% block body %}
+    <div style="text-align: center; margin-top: 50px;">
+        <h1>504 - C'est long, mais on attend toujours...</h1>
+        <p>Le serveur est dans l'attente de réponse, comme toi après avoir envoyé 50 candidatures sans nouvelle. 😅</p>
+        <img src="https://media.giphy.com/media/3o7TKqieJxVThpLv5C/giphy.gif" alt="Délai dépassé" style="width: 200px; height: auto; margin-top: 20px;">
+        <p>Mais ne t'inquiète pas, une réponse va arriver (peut-être) !</p>
+        <a href="{{ path('app_home') }}" style="display: inline-block; margin-top: 20px; padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">Retour à l'accueil, on respire !</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}404 | Alternance pour cette page{% endblock %}
+
+{% block body %}
+    <div style="text-align: center; margin-top: 50px;">
+        <h1>404 - Page en recherche active !</h1>
+        <p>Oups ! Cette page a peut-être postulé partout, mais elle n’a toujours pas été trouvée... 😅</p>
+        <img src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif" alt="Page perdue" style="width: 200px; height: auto; margin-top: 20px;">
+        <p>Pas d’inquiétude, on ne va pas vous laisser en galère !</p>
+        <a href="{{ path('app_home') }}" style="display: inline-block; margin-top: 20px; padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">Retour à l'accueil</a>
+    </div>
+{% endblock %}
+
