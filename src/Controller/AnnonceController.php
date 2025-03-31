@@ -44,4 +44,11 @@ final class AnnonceController extends AbstractController
             'annonce'=>$annonce
         ]);
     }
+
+    // test pour la page erreur 500 
+    //     public function testError500()
+    // {
+    //     throw new \Exception('Erreur interne du serveur');
+    // }
+
 }
