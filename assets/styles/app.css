@@ -1,3 +1,33 @@
 body {
-    background-color: skyblue;
+    background-color: rgb(7, 18, 71);
+    color:aliceblue;
+}
+
+
+/* ************************************** Logo *************************************** */
+#logoPerso{
+    width: 12rem;
+    height: 3.7rem;
+    border-radius:0.5rem 1.8rem;
+    border: 0.1rem solid rgb(163, 162, 162);
+} 
+
+/* ************************************** Logo - A Propos *************************************** */
+#logoSite{
+    width: 30rem;
+    height: 10rem;
+    border-radius:0.7rem 4.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+#logoBoby{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+    /* border:2px solid purple; */
 }
