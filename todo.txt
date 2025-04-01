@@ -1,0 +1,1 @@
+bug: menu burger suite au retrait du logo vers l'extérieur. 
