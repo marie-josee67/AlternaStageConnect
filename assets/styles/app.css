@@ -12,6 +12,24 @@ body {
     border: 0.1rem solid rgb(185, 184, 184);
 } 
 
+/* ************************************** header du body de toutes les pages *************************************** */
+#headerPage{ 
+    text-align: center;
+    /* border:2px solid green; */
+}
+
+#headerPage h1{
+    font-size: 4rem;
+    /* border:2px solid purple; */
+}
+
+#headerPage p {
+    font-size: 2rem;
+    font-weight: 700;
+    background-color: rgba(255, 0, 0, 0.997);
+    /* border:2px solid blue; */
+}
+
 /* ************************************** Logo - A Propos *************************************** */
 #logoSite{
     width: 30rem;

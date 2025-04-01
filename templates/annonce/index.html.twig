@@ -1,10 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des annonces{% endblock %}
+{% block title %}Annonces{% endblock %}
 
 {% block body %}
-
-    <h1>Liste de mes annonces</h1>
+    <div id="headerPage" >
+        <h1>Liste de mes annonces</h1>
+        <p> Site fictif</p>
+    </div>
     {{dump(annonces)}}
 
 {% endblock %}

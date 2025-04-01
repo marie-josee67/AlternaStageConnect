@@ -10,7 +10,5 @@
         public string $title;
         public string $imgSrc;
         public string $btnLink;
-        public string $btnLabel;
-    
-        
+        public string $btnLabel;  
     }

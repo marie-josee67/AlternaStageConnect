@@ -1,21 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AproposController!{% endblock %}
+{% block title %}A propos{% endblock %}
 
 {% block body %}
-    <div class="example-wrapper">
-        <h1>A Propos</h1>
-        <p> Site fictif</p>
+    <div class="example-wrapper ">
+        <div id="headerPage" >
+            <h1>A Propos</h1>
+            <p> Site fictif</p>
+        </div>
     </div>
-
     <div class="container my-6">
+
         <div class="row">
             <!-- **************** logo ******************* -->   
             <a id="logoBoby" class="navbar-brand" href="#">
             <img id="logoSite" src={{ asset('img/AlternaStageConnect.jpg') }} alt="Logo">
             </a>
 
-            <!-- **************** le site ******************* -->   
+            <!-- **************** le site ******************* -->  
+            <h2> Informations </h2> 
             <p>AlternaStageConnect est un site web 100% en ligne créé pour répondre aux besoins croissants des entreprises et des chercheurs de stage ou d'alternance. De nombreuses entreprises, et particulièrement les PME, rencontrent des difficultés pour rendre leurs annonces de stagiaire ou d'alternant visibles auprès des bons candidats. Le site vise à résoudre ce problème en offrant une plateforme simple et accessible, où les entreprises peuvent facilement publier leurs offres et où les candidats peuvent trouver des opportunités correspondant à leurs recherches, sans passer par des démarches longues et frustrantes.</p>
 
             <p>Les entreprises, notamment les PME, ne savent pas toujours comment rendre leurs demandes plus visibles ou comment cibler les bons profils, ce qui entraîne souvent une faible réponse ou un manque de visibilité. AlternaStageConnect pallie cette difficulté en centralisant les annonces de manière claire et efficace, permettant aux entreprises de mieux atteindre leurs futurs alternants ou stagiaires. Ce site constitue une solution idéale pour optimiser la gestion des offres de stage ou d’alternance, tout en gagnant en visibilité auprès des bons profils.</p>
