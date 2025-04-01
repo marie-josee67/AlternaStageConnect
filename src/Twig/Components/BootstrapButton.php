@@ -9,7 +9,7 @@
     {
         public string $text;            //< Texte qui sera affiché dans le bouton
         public string $strType = "";    //< Correspondra à la classe CSS de notre bouton
-    
+        public string $path;            //< chemin du lien
         /**
          * Cette fonction est appelée lors du "montage" de notre composant sur notre vue TWIG
         * Elle nous permet de définir des comportements particuliers, dont la création d'attributs 
