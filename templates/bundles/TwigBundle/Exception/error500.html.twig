@@ -7,7 +7,9 @@
         <h1>500 - Le serveur a abandonné... </h1>
         <h2>Tout comme toi après 100 candidatures sans réponse !</h2>
         <p>Oups ! Notre serveur est en pleine crise de motivation sûrement après avoir lu ton CV... 😅</p>
-        <img src="https://media.giphy.com/media/3o7qEddN3oNvcku2FS/giphy.gif" alt="Serveur en burnout" style="width: 200px; height: auto; margin-top: 20px;">
+        <div>
+            <img id="erreur" src={{ asset('img/erreur_500.jpg') }} alt="erreur 500" 
+        </div>
         <p>Ne t'inquiète pas, on va l'aider à se remotiver !</p>
         <a href="{{ path('app_home') }}" style="display: inline-block; margin-top: 20px; padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">Retour à l'accueil, on prend un café !</a>
     </div>

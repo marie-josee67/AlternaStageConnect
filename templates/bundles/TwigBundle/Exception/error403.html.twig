@@ -6,7 +6,9 @@
     <div style="text-align: center; margin-top: 50px;">
         <h1>403 - Accès interdit !</h1>
         <p>On dirait que cette page a été refusée... un peu comme une candidature sans expérience. 😅</p>
-        <img src="https://media.giphy.com/media/3o7TKZG9Wml3W3fj3a/giphy.gif" alt="Accès refusé" style="width: 200px; height: auto; margin-top: 20px;">
+        <div>
+            <img id="erreur" src={{ asset('img/erreur_403.jpg') }} alt="erreur 403" 
+        </div>
         <p>Mais ne t'inquiète pas, tu vas y arriver !</p>
         <a href="{{ path('app_home') }}" style="display: inline-block; margin-top: 20px; padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">Retour à l'accueil, on relance ta candidature !</a>
     </div>

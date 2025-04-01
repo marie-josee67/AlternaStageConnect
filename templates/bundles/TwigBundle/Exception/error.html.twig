@@ -6,7 +6,9 @@
     <div style="text-align: center; margin-top: 50px;">
         <h1>Page en recherche active !</h1>
         <p>Oups ! Cette page a envoyé 50 candidatures... et n’a toujours aucune réponse. Un recruteur fantôme est sûrement passé par là ! 👻</p>
-        <img src="https://media.giphy.com/media/3o7abKhOpu0NwenH3O/giphy.gif" alt="Recruteur fantôme" style="width: 200px; height: auto; margin-top: 20px;">
+        <div>
+            <img id="erreur" src={{ asset('img/erreur.jpg') }} alt="erreur" 
+        </div>
         <p>Pas d’inquiétude, on ne va pas vous laisser sans réponse !</p>
         <a href="{{ path('app_home') }}" style="display: inline-block; margin-top: 20px; padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">Retour à l'accueil</a>
     </div>
