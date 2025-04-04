@@ -6,6 +6,7 @@ use App\Entity\Stage;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class StageType extends AbstractType
 {
@@ -35,6 +36,10 @@ class StageType extends AbstractType
             ->add('processus')
             ->add('annee_experience')
             ->add('reconversible')
+            // ajout du bouton
+            ->add('submit', SubmitType::class, [
+                'label'=> 'Enregistrer'
+            ])
         ;
     }
 

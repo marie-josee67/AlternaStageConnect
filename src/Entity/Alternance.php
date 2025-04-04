@@ -53,6 +53,9 @@ class Alternance
     #[ORM\Column(nullable: true)]
     private ?bool $reconversible = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $img = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -210,6 +213,18 @@ class Alternance
     public function setReconversible(?bool $reconversible): static
     {
         $this->reconversible = $reconversible;
+
+        return $this;
+    }
+
+    public function getImg(): ?string
+    {
+        return $this->img;
+    }
+
+    public function setImg(string $img): static
+    {
+        $this->img = $img;
 
         return $this;
     }

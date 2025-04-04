@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter une alternance{% endblock %}
+
+{% block body %}
+    <div class="example-wrapper">
+        <div id="headerPage" >
+            <h1>Ajouter une alternance</h1>
+            <a href="{{path('app_alternances')}}"> Retourner à la liste</a>
+            
+        </div>
+    </div>
+    <div class="container">
+        <div class="row row-cols-1">
+            {{ form(formCreate)}}
+        </div>
+    </div>
+    {# {{ dump(request )}}  #}
+
+{% endblock %}
