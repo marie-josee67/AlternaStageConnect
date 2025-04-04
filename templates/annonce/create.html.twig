@@ -3,8 +3,15 @@
 {% block title %}Ajouter une annonce{% endblock %}
 
 {% block body %}
+    <div class="example-wrapper">
+        <div id="headerPage" >
+            <h1>Ajouter une annonce</h1>
+            <a href="{{path('app_annonce')}}"> Retourner à la liste</a>
+            
+        </div>
+    </div>
 
-    <h1>Ajouter une annonce</h1>
-    <a href="{{path('app_annonce')}}"> Retourner à la liste</a>
-{{ dump(annonce) }}
+{{ form(formCreate)}}
+
+{# {{ dump(annonce) }} #}
 {% endblock %}

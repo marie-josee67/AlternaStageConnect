@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use DateTime;
 use App\Entity\Annonce;
+use App\Form\AnnonceType;
 use APP\Repository\AnnonceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,18 +30,23 @@ final class AnnonceController extends AbstractController
         // création de l'objet
         $annonce = new Annonce();
 
-        // définir les différent attributs de l'objet
-        $annonce->setDescription("annonce 1")
-                ->setDate(new DateTime())
-                ->setFilname("fichier.img");
+        // création du formulaire pour l'affichage
+        //@param AnnonceType : correspond à la classe du formulaire
+        // @param $annonce : l'objet qui sera remplit par le formulaire
+        $formAnnonceCreate = $this->createForm(AnnonceType::class,$annonce);
 
-        // prépare les données à être sauvegarder en base
-        $entityManager->persist($annonce);
+        // // définir les différent attributs de l'objet
+        // $annonce->setDescription("annonce 1")
+        //         ->setDate(new DateTime())
+        //         ->setFilname("fichier.img");
 
-        //enregistre les données en base et créer l'Id unique
-        $entityManager->flush();
+        // // prépare les données à être sauvegarder en base
+        // $entityManager->persist($annonce);
 
+        // //enregistre les données en base et créer l'Id unique
+        // $entityManager->flush();
         return $this->render('annonce/create.html.twig', [
+            'formCreate' => $formAnnonceCreate,
             'annonce'=>$annonce
         ]);
     }
