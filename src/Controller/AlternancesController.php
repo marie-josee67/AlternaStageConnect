@@ -21,6 +21,8 @@ final class AlternancesController extends AbstractController
             'alternances' => $alternances,
         ]);
     }
+
+    /* ********************************** creation d'une alternance ***************************************************  */
     #[Route('/alternances/create', name: 'app_alternances_create')]
     public function create(EntityManagerInterface $entityManager, Request $request): Response
     {
@@ -28,8 +30,8 @@ final class AlternancesController extends AbstractController
         $alternance = new Alternance();
 
         // création du formulaire pour l'affichage
-        // @param AnnonceType : correspond à la classe du formulaire
-        // @param $annonce : l'objet qui sera remplit par le formulaire
+        // @param AlternanceType : correspond à la classe du formulaire
+        // @param $alternance : l'objet qui sera remplit par le formulaire
         $formAlternanceCreate = $this->createForm(AlternanceType::class,$alternance);
 
         // on dit au formulaire de récupérer les données de la requête ($_POST)

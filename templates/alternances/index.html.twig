@@ -19,8 +19,8 @@
             {% for alternance in alternances %}
                 <div class="col mb-4">
                     <twig:BootstrapCard
-                        title="{{ alternance.description }}"
-                        imgSrc="{{ alternance.name }}"
+                        title="{{ alternance.titre }}"
+                        imgSrc="{{ alternance.img }}"
                         metier="{{ alternance.metier}}"
                         btnLink=""
                         btnLabel="Détails"
@@ -32,6 +32,6 @@
             {% endfor %}
     </div>
 
-    {# {{dump(annonces)}} #}
+    {# {{dump(alternances)}} #}
 
 {% endblock %}

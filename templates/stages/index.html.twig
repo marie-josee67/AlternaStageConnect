@@ -298,4 +298,29 @@
             </div>
         </form>
     </div>
+
+<div id="boutonAjoutAnnonce" class="row row-cols-4 ">
+        <twig:BootstrapButton type="success" text="Ajouter un stage" path="{{ path('app_stages_create') }}" />
+    </div>
+    <div class="container">
+        <div class="row row-cols-1 row-cols-md-4 g-4">
+
+            {# ********************* Les cards ****************** #}
+            {% for stage in stages %}
+                <div class="col mb-4">
+                    <twig:BootstrapCard
+                        title="{{ stage.title }}"
+                        imgSrc="{{ stage.img}}"
+                        metier="{{ stage.metier}}"
+                        btnLink=""
+                        btnLabel="Détails"
+                    >
+                    </twig:BootstrapCard>
+                </div>
+            {% else %} 
+            <p> Aucun stage n'a été trouvée </P
+            {% endfor %}
+    </div>
+
+
 {% endblock %}

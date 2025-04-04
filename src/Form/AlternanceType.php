@@ -13,12 +13,9 @@ class AlternanceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name')
-            ->add('metier')
             ->add('titre')
-            ->add('date_creat', null, [
-                'widget' => 'single_text',
-            ])
+            ->add('metier')
+            ->add('img')
             ->add('date_debut', null, [
                 'widget' => 'single_text',
             ])
