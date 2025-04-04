@@ -11,4 +11,5 @@
         public string $imgSrc;
         public string $btnLink;
         public string $btnLabel;  
+        public string $metier;
     }
