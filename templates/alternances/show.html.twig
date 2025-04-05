@@ -15,7 +15,9 @@
         <div class="row row-cols-1">
         <h2 id="detailTitre"> {{alternance.titre}}</h2>
         <h2 id="detailMetier"> {{alternance.metier}}</h2>
+        <p id="detailExp">Année(s) d'expérience : <strong> {{alternance.anneeExperience}}</strong></p>
         <hr>
+        <p id="detailImg"> {{alternance.img}}
         <h2> Dates : </h2>
         </div>
     </div>
@@ -37,7 +39,10 @@
             <p>{{ alternance.processus? alternance.processus : 'Non renseignée' }}</p>
         </div>
     </div>
+    <div id="postuler" class="row row-cols-4">
+            <twig:BootstrapButton type="primary" path="{{ path('app_alternances') }}" text="Postuler" />
+    </div>
 
-    {{ dump(alternance)}} 
+    {# {{ dump(alternance)}}  #}
 
 {% endblock %}
