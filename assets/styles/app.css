@@ -97,3 +97,10 @@ body {
     text-align: center;
     /* border:2px solid coral; */
 }
+
+#postuler{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    /* border:2px dotted fuchsia; */
+}
