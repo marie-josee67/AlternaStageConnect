@@ -6,7 +6,8 @@
     <div class="example-wrapper">
         <div id="headerPage" >
             <h1>Ajouter une alternance</h1>
-            <twig:BootstrapButton type="primary" path="{{('app_alternances')}}" label="Retourner à la liste"/>   
+            {# <twig:BootstrapButton type="primary" path="{{('app_alternances')}}" label="Retourner à la liste"/>    #}
+            <a href="{{ path('app_alternances') }}"> Retourner à la liste </a>
         </div>
     </div>
     <div class="container">
