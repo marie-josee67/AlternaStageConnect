@@ -139,7 +139,7 @@ final class AlternancesController extends AbstractController
     }
 
     /* ********************************** supprimer une alternance ***************************************************  */
- /**
+    /**
      * Route de suppression d'une alternance
      * 
      * @route alternance/delete/{id}
