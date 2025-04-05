@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail d'une alternance{% endblock %}
+
+{% block body %}
+    <div class="example-wrapper">
+        <div id="headerPage" >
+            <h1>Détail de l'annonce :</h1>
+            {# <twig:BootstrapButton type="primary" path="{{ path('app_alternances') }}" text="Retourner à la liste"/> #}
+            <twig:BootstrapButton type="primary" path="{{ path('app_alternances') }}" text="Retourner à la liste" />
+            {# <a href="{{ path('app_alternances') }}"> Retourner à la liste </a> #}
+        </div>
+    </div>
+    <div class="container">
+        <div class="row row-cols-1">
+        <h2 id="detailTitre"> {{alternance.titre}}</h2>
+        <h2 id="detailMetier"> {{alternance.metier}}</h2>
+        <hr>
+        <h2> Dates : </h2>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row row-cols-2">
+            <p>Début de l'alternance : {{ alternance.dateDebut|date('d/m/Y') }} </p>
+            <p>Ouverture postulation : {{ alternance.dateOuverture ? alternance.dateOuverture|date('d/m/Y H:i') : 'Non renseignée' }} </p>
+            <p>Fin de l'alternance : {{ alternance.dateFin|date('d/m/Y')}} </p>
+            <p>Clôture postulation : {{ alternance.dateCloture ? alternance.dateCloture|date('d/m/Y H:i') : 'Non renseignée' }} </p> 
+        </div>
+    </div>
+    <div class="container">
+        <div class="row row-cols-1">
+            <h2> Description : </h2>
+            <p> {{ alternance.description }} </p>
+            <h2> Missions :</h2>
+            <p> {{ alternance.mission }} </p>
+            <h2> Processus de recrutement :</h2>
+            <p>{{ alternance.processus? alternance.processus : 'Non renseignée' }}</p>
+        </div>
+    </div>
+
+    {{ dump(alternance)}} 
+
+{% endblock %}

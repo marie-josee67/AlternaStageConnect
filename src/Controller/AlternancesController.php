@@ -48,9 +48,26 @@ final class AlternancesController extends AbstractController
         }
 
         return $this->render('alternances/create.html.twig', [
-            'formCreate' => $formAlternanceCreate,
-            'request' => $request,
-            'alternances'=>$alternance
+            'formCreate'    => $formAlternanceCreate,
+            'request'       => $request,
+            'alternances'   => $alternance
         ]);
     }
+
+    /* ********************************** détails d'une alternance ***************************************************  */
+    #[Route('/alternances/{id<\d+>}', name: 'app_alternances_show')]
+    public function show(Alternance $alternance): Response
+    {
+        return $this->render('alternances/show.html.twig', [
+            'alternance' => $alternance,
+        ]);
+    }
+    
+
+    /* ********************************** modifier une alternance ***************************************************  */
+
+    /* ********************************** supprimer une alternance ***************************************************  */
+
+    /* ********************************** postuler à une alternance ***************************************************  */
+
 }
