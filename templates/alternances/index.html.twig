@@ -22,10 +22,12 @@
                         title="{{ alternance.titre }}"
                         imgSrc="{{ alternance.img }}"
                         metier="{{ alternance.metier}}"
-                        btnLink=""
-                        btnLabel="Détails"
                     >
-                    {# <twig:BootstrapButton type="warning" text="Modifier" path="{{ path('app_alternances_edit') }}" /> #}
+                    <twig:block name="buttons">
+                        <twig:BootstrapButton type="primary" text="Détails" path="{{ path('app_alternances_show', { id: alternance.id }) }}" />
+                        <twig:BootstrapButton type="warning" text="Modifier"path="{{ path('app_alternances_edit', { id: alternance.id }) }}" />
+                        {# <twig:BootstrapButton type="danger" text="Supprimer"path="{{ path('app_alternances_delete', { id: alternance.id }) }}" /> #}
+                    </twig:block> 
                     </twig:BootstrapCard>
                 </div>
             {% else %} 

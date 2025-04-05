@@ -12,6 +12,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class AlternancesController extends AbstractController
 {
+    /**
+     * Page d'affichage de la liste complète des annonces d'alternances en base
+     * 
+     * @route alternances/
+     * @name app_alternance
+     * @methods GET
+     * 
+     * @param AlternanceRepository $alternanceRepository (Service) Repository permettant l'accès aux données en base
+     * 
+     * @return Response Réponse HTTP renvoyée au navigateur comportant la liste des alternances
+     */ 
     #[Route('/alternances', name: 'app_alternances')]
     public function index(EntityManagerInterface $entityManager): Response
     {
@@ -23,6 +34,15 @@ final class AlternancesController extends AbstractController
     }
 
     /* ********************************** creation d'une alternance ***************************************************  */
+    /**
+     * @route alternances/create
+     * @name app_alternances_create
+     * 
+     * @param EntityManagerInterface $entityManager (dépendance) Gestionnaire d'entités
+     * @param Request $request (dépendance) Objet contenant la requête envoyé par le navigateur ($_POST/$_GET)
+     * 
+     * @return Response Réponse HTTP renvoyée au navigateur comportant le formulaire de création
+     * */
     #[Route('/alternances/create', name: 'app_alternances_create')]
     public function create(EntityManagerInterface $entityManager, Request $request): Response
     {
@@ -55,6 +75,16 @@ final class AlternancesController extends AbstractController
     }
 
     /* ********************************** détails d'une alternance ***************************************************  */
+     /**
+     * Page  d'affichage des détails d'une annonce d'alternance
+     * 
+     * @route alternance/{id}
+     * @name app_alternance_show
+     * 
+     * @param Alternance $alternance Entité alternance correspondante à l'ID transmise dans l'URL
+     *
+     * @return Response Réponse HTTP renvoyée au navigateur avec les détails de la photo
+     */
     #[Route('/alternances/{id<\d+>}', name: 'app_alternances_show')]
     public function show(Alternance $alternance): Response
     {
@@ -65,9 +95,92 @@ final class AlternancesController extends AbstractController
     
 
     /* ********************************** modifier une alternance ***************************************************  */
+    /**
+     * Page  de modification des détails d'une alternance
+     * 
+     * @route alternance/edit/{id}
+     * @name app_alternance_edit
+     * 
+     * @param alternance $alternance Entité Alternance correspondante à l'ID transmise dans l'URL
+     * @param EntityManagerInterface $entityManager (dépendance) Gestionnaire d'entités
+     * @param Request $request (dépendance) Objet contenant la requête envoyé par le navigateur ($_POST/$_GET)
+     *
+     * @return Response Réponse HTTP renvoyée au navigateur avec les détails de la photo
+     */
+    #[Route('/alternances/edit/{id<\d+>}', name: 'app_alternances_edit', methods: ['GET', 'POST'])]
+    public function edit(Alternance $alternance, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        // Création du formulaire pour l'affichage
+        // @param AlternanceType : correspond à la classe du formulaire
+        // @param $alternance : l'objet qui remplit par défaut le formulaire et qui sera mis à jour
+        $formAlternanceEdit = $this->createForm(AlternanceType::class, $alternance);
+
+        // On dit au formulaire de récupérer les données de la requête ($_POST)
+        $formAlternanceEdit->handleRequest($request);
+
+        // On vérifie que le formulaire a été soumis et que les données sont valides
+        if($formAlternanceEdit->isSubmitted() && $formAlternanceEdit->isValid())
+        {    
+            // Le persist n'est pas à faire en cas de modification, les données provenant déjà la base
+
+            // Met à jour les données en base
+            $entityManager->flush();
+
+            $this->addFlash(
+                'success',
+                "Les modifications ont été enregistrées"
+            );
+        }
+
+        return $this->render('alternances/edit.html.twig', [
+            'alternance'       => $alternance,
+            'formEdit'      => $formAlternanceEdit
+        ]);
+    }
 
     /* ********************************** supprimer une alternance ***************************************************  */
+ /**
+     * Route de suppression d'une alternance
+     * 
+     * @route alternance/delete/{id}
+     * @name app_alternance_delete
+     * 
+     * @param Alternance $alternance Entité Alternance correspondante à l'ID transmise dans l'URL
+     * @param EntityManagerInterface $entityManager (dépendance) Gestionnaire d'entités
+     *
+     * @return Response Réponse HTTP renvoyée au navigateur
+     */
+    #[Route('/alternances/delete/{id<\d+>}', name: 'app_alternances_delete')]
+    public function delete(Alternance $alternance, EntityManagerInterface $entityManager): Response
+    {
+        try {
 
+            // prépare l'objet à la suppression
+            $entityManager->remove($alternance);
+
+            // on lance la suppression en base
+            $entityManager->flush();
+
+            // si tout s'est bien passé, je redirige vers la liste
+            $this->addFlash(
+                'success',
+                "La suppression a été effectuée"
+            );
+
+            return $this->redirectToRoute('app_alternances');
+        }
+        catch(\Exception $exc) {
+
+            // Je prépare un flash qui s'affichera à l'écran avec le message d'erreur de l'exception
+            $this->addFlash(
+                'error',
+                $exc->getMessage()
+            );
+
+            // Je redirige vers la page de la photo
+            return $this->redirectToRoute('app_picture_show', ['id' => $alternance->getId()], 304);
+        }
+    }
     /* ********************************** postuler à une alternance ***************************************************  */
 
 }
