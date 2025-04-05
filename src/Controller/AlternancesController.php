@@ -16,7 +16,7 @@ final class AlternancesController extends AbstractController
      * Page d'affichage de la liste complète des annonces d'alternances en base
      * 
      * @route alternances/
-     * @name app_alternance
+     * @name app_alternances
      * @methods GET
      * 
      * @param AlternanceRepository $alternanceRepository (Service) Repository permettant l'accès aux données en base

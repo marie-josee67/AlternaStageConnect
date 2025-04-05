@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail d'un stage{% endblock %}
+
+{% block body %}
+    <div class="example-wrapper">
+        <div id="headerPage" >
+            <h1>Détail d'un stage :</h1>
+            {# <twig:BootstrapButton type="primary" path="{{ path('app_stages') }}" text="Retourner à la liste"/> #}
+            <twig:BootstrapButton type="primary" path="{{ path('app_stages') }}" text="Retourner à la liste" />
+            {# <a href="{{ path('app_stages') }}"> Retourner à la liste </a> #}
+        </div>
+    </div>
+    <div class="container">
+        <div class="row row-cols-1">
+        <h2 id="detailTitre"> {{stage.title}}</h2>
+        <h2 id="detailMetier"> {{stage.metier}}</h2>
+        <p id="detailExp">Année(s) d'expérience : <strong> {{stage.anneeExperience}}</strong></p>
+        <hr>
+        <div>
+            <img id="detailImg" src="{{stage.img}}"/>
+        </div>
+        <h2> Dates : </h2>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row row-cols-2">
+            <p>Début de l'stage : {{ stage.dateDebut|date('d/m/Y') }} </p>
+            <p>Ouverture postulation : {{ stage.dateOuverture ? stage.dateOuverture|date('d/m/Y H:i') : 'Non renseignée' }} </p>
+            <p>Fin de l'stage : {{ stage.dateFin|date('d/m/Y')}} </p>
+            <p>Clôture postulation : {{ stage.dateCloture ? stage.dateCloture|date('d/m/Y H:i') : 'Non renseignée' }} </p> 
+        </div>
+    </div>
+    <div class="container">
+        <div class="row row-cols-1">
+            <h2> Description : </h2>
+            <p> {{ stage.description }} </p>
+            <h2> Missions :</h2>
+            <p> {{ stage.mission }} </p>
+            <h2> Processus de recrutement :</h2>
+            <p>{{ stage.processus? stage.processus : 'Non renseignée' }}</p>
+        </div>
+    </div>
+    <div id="postuler" class="row row-cols-4">
+            <twig:BootstrapButton type="primary" path="{{ path('app_stages') }}" text="Postuler" />
+    </div>
+
+    {# {{ dump(stage)}}  #}
+
+{% endblock %}

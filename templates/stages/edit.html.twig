@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier d'un stage{% endblock %}
+
+{% block body %}
+    <div class="example-wrapper">
+        <div id="headerPage" >
+            <h1>Modifier d'un stage</h1>
+            <twig:BootstrapButton type="primary" path="{{ path('app_stages') }}" text="Retourner à la liste" />
+             {# <a href="{{ path('app_alternances') }}"> Retourner à la liste </a> #}
+        </div>
+    </div>
+    <div class="container">
+        <div class="row row-cols-1">
+            {{ form(formEdit) }}
+            <twig:BootstrapButton type="danger"path="{{ path('app_stages_delete', { id: stage.id }) }}"  text="Supprimer" /> 
+        </div>
+    </div>
+    {# {{ dump(request )}}  #}
+
+{% endblock %}
