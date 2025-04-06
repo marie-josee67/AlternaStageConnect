@@ -23,6 +23,9 @@ class Avis
     #[ORM\ManyToOne(inversedBy: 'avis')]
     private ?Alternance $Avis = null;
 
+    #[ORM\ManyToOne(inversedBy: 'avis')]
+    private ?Stage $Stage = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +63,18 @@ class Avis
     public function setAvis(?Alternance $Avis): static
     {
         $this->Avis = $Avis;
+
+        return $this;
+    }
+
+    public function getStage(): ?Stage
+    {
+        return $this->Stage;
+    }
+
+    public function setStage(?Stage $Stage): static
+    {
+        $this->Stage = $Stage;
 
         return $this;
     }
