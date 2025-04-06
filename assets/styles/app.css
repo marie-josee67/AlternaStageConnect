@@ -67,7 +67,7 @@ body {
     /* border: 2px solid gold; */
 }
 
-/* ************************************** Page - Détails ALternance *************************************** */
+/* ************************************** Page - Détails Alternance / stage *************************************** */
 #detailTitre{
     text-align: center;
     font-weight:700;
@@ -104,4 +104,12 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     /* border:2px dotted fuchsia; */
+}
+
+/* ************************************** Page - Édit Alternance / stage *************************************** */
+#supprimer{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    /* border:2px dotted mediumblue; */
 }

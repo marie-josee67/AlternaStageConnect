@@ -13,6 +13,8 @@
     <div class="container">
         <div class="row row-cols-1">
             {{ form(formEdit) }}
+        </div>
+        <div id="supprimer" class="row row-cols-4">
             <twig:BootstrapButton type="danger"path="{{ path('app_stages_delete', { id: stage.id }) }}"  text="Supprimer" /> 
         </div>
     </div>
