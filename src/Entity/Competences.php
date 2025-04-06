@@ -24,9 +24,16 @@ class Competences
     #[ORM\ManyToMany(targetEntity: Alternance::class, inversedBy: 'competences')]
     private Collection $Competences;
 
+    /**
+     * @var Collection<int, Stage>
+     */
+    #[ORM\ManyToMany(targetEntity: Stage::class, inversedBy: 'competences')]
+    private Collection $Stage;
+
     public function __construct()
     {
         $this->Competences = new ArrayCollection();
+        $this->Stage = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -66,6 +73,30 @@ class Competences
     public function removeCompetence(Alternance $competence): static
     {
         $this->Competences->removeElement($competence);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Stage>
+     */
+    public function getStage(): Collection
+    {
+        return $this->Stage;
+    }
+
+    public function addStage(Stage $stage): static
+    {
+        if (!$this->Stage->contains($stage)) {
+            $this->Stage->add($stage);
+        }
+
+        return $this;
+    }
+
+    public function removeStage(Stage $stage): static
+    {
+        $this->Stage->removeElement($stage);
 
         return $this;
     }

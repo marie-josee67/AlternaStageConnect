@@ -64,9 +64,16 @@ class Stage
     #[ORM\OneToMany(targetEntity: Avis::class, mappedBy: 'Stage')]
     private Collection $avis;
 
+    /**
+     * @var Collection<int, Competences>
+     */
+    #[ORM\ManyToMany(targetEntity: Competences::class, mappedBy: 'Stage')]
+    private Collection $competences;
+
     public function __construct()
     {
         $this->avis = new ArrayCollection();
+        $this->competences = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -267,6 +274,33 @@ class Stage
             if ($avi->getStage() === $this) {
                 $avi->setStage(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Competences>
+     */
+    public function getCompetences(): Collection
+    {
+        return $this->competences;
+    }
+
+    public function addCompetence(Competences $competence): static
+    {
+        if (!$this->competences->contains($competence)) {
+            $this->competences->add($competence);
+            $competence->addStage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompetence(Competences $competence): static
+    {
+        if ($this->competences->removeElement($competence)) {
+            $competence->removeStage($this);
         }
 
         return $this;
