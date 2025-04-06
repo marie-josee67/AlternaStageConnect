@@ -67,6 +67,12 @@ final class StagesController extends AbstractController
             $entityManager->flush();
         }
 
+        // message
+        $this->addFlash(
+            'success',
+            "La création a bien été enregistrées"
+        );
+
         return $this->render('stages/create.html.twig', [
             'formCreate' => $formStageCreate,
             'request' => $request,
@@ -124,7 +130,8 @@ final class StagesController extends AbstractController
 
             // Met à jour les données en base
             $entityManager->flush();
-
+            
+            //message
             $this->addFlash(
                 'success',
                 "Les modifications ont été enregistrées"
@@ -160,7 +167,7 @@ final class StagesController extends AbstractController
             // on lance la suppression en base
             $entityManager->flush();
 
-            // si tout s'est bien passé, je redirige vers la liste
+            // message
             $this->addFlash(
                 'success',
                 "La suppression a été effectuée"

@@ -67,6 +67,12 @@ final class AlternancesController extends AbstractController
             $entityManager->flush();
         }
 
+        //message
+        $this->addFlash(
+            'success',
+            "La création a bien été enregistrées"
+        );
+
         return $this->render('alternances/create.html.twig', [
             'formCreate'    => $formAlternanceCreate,
             'request'       => $request,
@@ -126,6 +132,7 @@ final class AlternancesController extends AbstractController
             // Met à jour les données en base
             $entityManager->flush();
 
+            //message
             $this->addFlash(
                 'success',
                 "Les modifications ont été enregistrées"
@@ -161,7 +168,7 @@ final class AlternancesController extends AbstractController
             // on lance la suppression en base
             $entityManager->flush();
 
-            // si tout s'est bien passé, je redirige vers la liste
+            // message
             $this->addFlash(
                 'success',
                 "La suppression a été effectuée"

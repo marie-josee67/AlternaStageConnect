@@ -113,3 +113,11 @@ body {
     justify-content: center;
     /* border:2px dotted mediumblue; */
 }
+
+.toast {
+    position: fixed;
+    top: 20px; /* Ajustez la distance du haut de l'écran */
+    left: 50%;
+    transform: translateX(-50%); /* Centre le toast horizontalement */
+    z-index: 1050; /* Assurez-vous qu'il soit au-dessus des autres éléments */
+}
