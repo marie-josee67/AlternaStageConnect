@@ -64,9 +64,16 @@ class Alternance
     #[ORM\OneToMany(targetEntity: Avis::class, mappedBy: 'Avis')]
     private Collection $avis;
 
+    /**
+     * @var Collection<int, Competences>
+     */
+    #[ORM\ManyToMany(targetEntity: Competences::class, mappedBy: 'Competences')]
+    private Collection $competences;
+
     public function __construct()
     {
         $this->avis = new ArrayCollection();
+        $this->competences = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -267,6 +274,33 @@ class Alternance
             if ($avi->getAvis() === $this) {
                 $avi->setAvis(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Competences>
+     */
+    public function getCompetences(): Collection
+    {
+        return $this->competences;
+    }
+
+    public function addCompetence(Competences $competence): static
+    {
+        if (!$this->competences->contains($competence)) {
+            $this->competences->add($competence);
+            $competence->addCompetence($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompetence(Competences $competence): static
+    {
+        if ($this->competences->removeElement($competence)) {
+            $competence->removeCompetence($this);
         }
 
         return $this;

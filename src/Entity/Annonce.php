@@ -23,6 +23,9 @@ class Annonce
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
+    #[ORM\ManyToOne(inversedBy: 'annonces')]
+    private ?Cathegorie $Annonce = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +63,18 @@ class Annonce
     public function setDescription(string $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getAnnonce(): ?Cathegorie
+    {
+        return $this->Annonce;
+    }
+
+    public function setAnnonce(?Cathegorie $Annonce): static
+    {
+        $this->Annonce = $Annonce;
 
         return $this;
     }
