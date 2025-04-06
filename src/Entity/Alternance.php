@@ -53,6 +53,9 @@ class Alternance
     #[ORM\Column(length: 255)]
     private ?string $img = null;
 
+    #[ORM\ManyToOne(inversedBy: 'alternances')]
+    private ?Metier $Alternance = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -210,6 +213,18 @@ class Alternance
     public function setImg(string $img): static
     {
         $this->img = $img;
+
+        return $this;
+    }
+
+    public function getAlternance(): ?Metier
+    {
+        return $this->Alternance;
+    }
+
+    public function setAlternance(?Metier $Alternance): static
+    {
+        $this->Alternance = $Alternance;
 
         return $this;
     }
