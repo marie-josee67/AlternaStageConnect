@@ -20,6 +20,9 @@ class Avis
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
+    #[ORM\ManyToOne(inversedBy: 'avis')]
+    private ?Alternance $Avis = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -45,6 +48,18 @@ class Avis
     public function setDescription(string $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getAvis(): ?Alternance
+    {
+        return $this->Avis;
+    }
+
+    public function setAvis(?Alternance $Avis): static
+    {
+        $this->Avis = $Avis;
 
         return $this;
     }
