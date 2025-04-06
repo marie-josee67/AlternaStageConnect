@@ -53,6 +53,9 @@ class Stage
     #[ORM\Column(length: 255)]
     private ?string $img = null;
 
+    #[ORM\ManyToOne(inversedBy: 'stages')]
+    private ?Metier $Stage = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -210,6 +213,18 @@ class Stage
     public function setImg(string $img): static
     {
         $this->img = $img;
+
+        return $this;
+    }
+
+    public function getStage(): ?Metier
+    {
+        return $this->Stage;
+    }
+
+    public function setStage(?Metier $Stage): static
+    {
+        $this->Stage = $Stage;
 
         return $this;
     }

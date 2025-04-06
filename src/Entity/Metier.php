@@ -24,9 +24,16 @@ class Metier
     #[ORM\OneToMany(targetEntity: Alternance::class, mappedBy: 'Alternance')]
     private Collection $alternances;
 
+    /**
+     * @var Collection<int, Stage>
+     */
+    #[ORM\OneToMany(targetEntity: Stage::class, mappedBy: 'Stage')]
+    private Collection $stages;
+
     public function __construct()
     {
         $this->alternances = new ArrayCollection();
+        $this->stages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -70,6 +77,36 @@ class Metier
             // set the owning side to null (unless already changed)
             if ($alternance->getAlternance() === $this) {
                 $alternance->setAlternance(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Stage>
+     */
+    public function getStages(): Collection
+    {
+        return $this->stages;
+    }
+
+    public function addStage(Stage $stage): static
+    {
+        if (!$this->stages->contains($stage)) {
+            $this->stages->add($stage);
+            $stage->setStage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStage(Stage $stage): static
+    {
+        if ($this->stages->removeElement($stage)) {
+            // set the owning side to null (unless already changed)
+            if ($stage->getStage() === $this) {
+                $stage->setStage(null);
             }
         }
 
