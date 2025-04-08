@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Postuler;
 use App\Entity\Alternance;
+use App\Form\PostulerType;
 use App\Form\AlternanceType;
+use App\Repository\AlternanceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -185,9 +188,51 @@ final class AlternancesController extends AbstractController
             );
 
             // Je redirige vers la page de la photo
-            return $this->redirectToRoute('app_picture_show', ['id' => $alternance->getId()], 304);
+            return $this->redirectToRoute('app_alternance_show', ['id' => $alternance->getId()], 304);
         }
     }
     /* ********************************** postuler à une alternance ***************************************************  */
+   // src/Controller/AlternanceController.php
 
+#[Route('/alternance/postuler/{id<\d+>}', name: 'app_alternances_postuler')]
+public function postuler(Alternance $alternance, EntityManagerInterface $em, Request $request,AlternanceRepository $alternanceRepository
+): Response {
+    // // 1. Récupérer l'alternance par son ID
+    // $alternance = $alternanceRepository->find($id);
+
+    if (!$alternance) {
+        throw $this->createNotFoundException('Offre alternance introuvable');
+    }
+
+    // 2. Créer une nouvelle instance de Postuler
+    $postuler = new Postuler();
+
+    // 3. Créer et traiter le formulaire
+    $form = $this->createForm(PostulerType::class, $postuler);
+    $form->handleRequest($request);
+
+    // 4. Si le formulaire est soumis et valide
+    if ($form->isSubmitted() && $form->isValid()) {
+        // 5. Lier la candidature à l'alternance (relation ManyToOne)
+        $postuler->setAlternance($alternance);  // C'est ici que tu lieras la candidature
+
+        // 6. Sauvegarder l'objet Postuler en base de données
+        $em->persist($postuler);
+        $em->flush();
+
+        // 7. Afficher un message de succès
+        $this->addFlash('success', 'Votre candidature à l\'alternance a été envoyée !');
+
+         // Je redirige vers la page de l'annonce'
+         return $this->redirectToRoute('app_alternances_postuler', ['id' => $alternance->getId()], 304);
+    }
+
+    // 9. Afficher la vue du formulaire
+    return $this->render('alternances/postuler.html.twig', [
+        'form' => $form->createView(),
+        'alternance' => $alternance,  // Pour afficher des détails de l'alternance si nécessaire
+    ]);
+}
+
+    
 }

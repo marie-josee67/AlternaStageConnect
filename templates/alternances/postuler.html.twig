@@ -5,15 +5,30 @@
 {% block body %}
     <div class="example-wrapper">
         <div id="headerPage" >
-            <h1>Postuler à une alternance</h1>
+            <h1>Postuler à l'alternance : {{ alternance.titre ?? stage.titre }} </h1>
             {# <twig:BootstrapButton type="primary" path="{{('app_alternances')}}" label="Retourner à la liste"/>    #}
             <a href="{{ path('app_alternances') }}"> Retourner à la liste </a>
         </div>
     </div>
-    <div class="container">
+    {# <div class="container">
         <div class="row row-cols-1">
-
+                {{ form(form) }}
         </div>
+        <div>
+            <twig:BootstrapButton type="primary" path="{{ path('app_alternances') }}" text="Envoyer ma candidature" />
+        </div>
+    </div> #}
+<div class="container">
+        <div class="row row-cols-1">
+    <form method="post">
+        {{ form_start(form) }}
+
+        {{ form_end(form) }}
+        <div id="postuler" class="row row-cols-4">
+            <twig:BootstrapButton type="primary" path="{{ path('app_alternances') }}" text="Envoyer ma candidature" />
+        </div>
+    </form>
+ </div>
     </div>
     {# {{ dump(request )}}  #}
 

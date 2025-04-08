@@ -42,7 +42,7 @@
         </div>
     </div>
     <div id="postuler" class="row row-cols-4">
-            <twig:BootstrapButton type="primary" path="{{ path('app_alternances') }}" text="Postuler" />
+            <twig:BootstrapButton type="primary" path="{{ path('app_alternances_postuler', { id: alternance.id }) }}" text="Postuler" />
     </div>
 
     {# {{ dump(alternance)}}  #}

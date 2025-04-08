@@ -38,6 +38,15 @@ class Postuler
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $message = null;
 
+    // relation avec l'entity alternance
+    #[ORM\ManyToOne(targetEntity: Alternance::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Alternance $alternance = null;
+
+    // relation avec l'entity stage
+    #[ORM\ManyToOne(targetEntity: Stage::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Stage $stage = null;
     public function getId(): ?int
     {
         return $this->id;
@@ -138,4 +147,27 @@ class Postuler
 
         return $this;
     }
+
+    public function getAlternance(): ?Alternance
+    {
+        return $this->alternance;
+    }
+
+    public function setAlternance(?Alternance $alternance): self
+    {
+        $this->alternance = $alternance;
+        return $this;
+    }
+
+    public function getStage(): ?Stage
+    {
+        return $this->stage;
+    }
+
+    public function setStage(?Stage $stage): self
+    {
+        $this->stage = $stage;
+        return $this;
+    }
+
 }
