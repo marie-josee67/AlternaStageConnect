@@ -27,10 +27,10 @@
 
         {% if app.user %}
             {{ nav_link('Déconnexion', 'app_logout') }}
-            {% else %}
+        {% else %}
             {{ nav_link("S'inscrire", 'app_register') }}
             {{ nav_link('Connexion', 'app_login') }}
-            {% endif %}
+        {% endif %}
       </div>
     </div>
   </div>
