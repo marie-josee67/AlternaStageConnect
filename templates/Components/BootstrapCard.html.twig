@@ -1,12 +1,17 @@
 <div class="card" style="width: 18rem;">
   {% if imgSrc %}    
   <div class="embed-responsive embed-responsive-16by9">
-      <img src={{ imgSrc }} class="card-img-top embed-responsive-item">
+      <img src="{{ asset('uploads/images/' ~ imgSrc) }}"  class="card-img-top embed-responsive-item">
   </div>
   {% endif %}
 
   <div class="card-body">
     <h5 class="card-title">{{ title }}</h5>
+
+        {# pour faire apparaitre le métier dans la card #}
+        {% if metier %}
+            <p class="card-text"> {{ metier }}</p>
+        {% endif %}
     {% block content %}{% endblock %}
     {% block buttons %}{% endblock %}
   </div>
