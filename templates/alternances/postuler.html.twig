@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Postuler à une alternance{% endblock %}
+
+{% block body %}
+    <div class="example-wrapper">
+        <div id="headerPage" >
+            <h1>Postuler à une alternance</h1>
+            {# <twig:BootstrapButton type="primary" path="{{('app_alternances')}}" label="Retourner à la liste"/>    #}
+            <a href="{{ path('app_alternances') }}"> Retourner à la liste </a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row row-cols-1">
+
+        </div>
+    </div>
+    {# {{ dump(request )}}  #}
+
+{% endblock %}
