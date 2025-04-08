@@ -121,3 +121,9 @@ body {
     transform: translateX(-50%); /* Centre le toast horizontalement */
     z-index: 1050; /* Assurez-vous qu'il soit au-dessus des autres éléments */
 }
+
+/* ************************************** Page - d'inscription pour créer un compte *************************************** */
+#inscription{
+    margin-top: 1rem;
+    /* border:2px solid red; */
+}
