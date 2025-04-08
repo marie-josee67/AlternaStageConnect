@@ -19,20 +19,20 @@
             <h2>Les actu alternances</h2>
         </div>
 
-        <div class="row row-cols-1 row-cols-md-4 g-4">
-
-            {# ********************* Les cards ****************** #}
-            {% for i in 1..8 %}
-                <div class="col">
-                    <twig:BootstrapCard
-                        title="Annonce"
-                        imgSrc="https://picsum.photos/seed/{{i}}/200/200"
-                        btnLink=""
-                        btnLabel="Détails"
-                    >
-                    </twig:BootstrapCard>
+  <div class="row">
+            {% for alternance in alternances %}
+                <div class="col-md-3 mb-4">
+                    <div class="card">
+                        <img src="{{ alternance.img }}" class="card-img-top" alt="Image de l'alternance">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ alternance.titre }}</h5>
+                            <p class="card-text">{{ alternance.metier }}</p>
+                            <a href="{{ path('app_alternances_show', {id: alternance.id}) }}" class="btn btn-primary">Voir les détails</a>
+                        </div>
+                    </div>
                 </div>
             {% endfor %}
+
         </div>
     </div>
 
@@ -42,16 +42,17 @@
             <h2>Les actu stages</h2>
         </div>
 
-        <div class="row row-cols-1 row-cols-md-4 g-4">
-            {% for i in 1..8 %}
-                <div class="col">
-                    <twig:BootstrapCard
-                        title="Annonce"
-                        imgSrc="https://picsum.photos/seed/{{i}}/200/200"
-                        btnLink=""
-                        btnLabel="Détails"
-                    >
-                    </twig:BootstrapCard>
+       <div class="row">
+            {% for stage in stages %}
+                <div class="col-md-3 mb-4">
+                    <div class="card">
+                        <img src="{{ stage.img }}" class="card-img-top" alt="Image du stage">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ stage.title }}</h5>
+                            <p class="card-text">{{ stage.metier }}</p>
+                            <a href="{{ path('app_stages_show', {id: stage.id}) }}" class="btn btn-primary">Voir les détails</a>
+                        </div>
+                    </div>
                 </div>
             {% endfor %}
         </div>
