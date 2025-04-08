@@ -5,7 +5,9 @@ namespace App\Form;
 use App\Entity\Alternance;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -16,10 +18,12 @@ class AlternanceType extends AbstractType
     {
         $builder
             ->add('titre', null, [
-                'label'=>"Titre de l'annonce *"
+                'label'=>"Titre de l'annonce *",
+                'required' => true, // champ obligatoire
             ])
             ->add('metier', ChoiceType::class, [
-                'label' => 'Métier',
+                'label' => 'Métier *',
+                'required' => true,
                 'choices' => [
                     
                     'Informatique et Numérique' => [
@@ -190,16 +194,34 @@ class AlternanceType extends AbstractType
                 'placeholder' => 'Choisissez un métier',
             ])
             
-            ->add('img', null, [
-                'label'=>"Image *"
+            ->add('img', FileType::class, [
+                'label' => 'Image de l\'annonce (JPG, PNG, WEBP)',
+                'mapped' => false, // pas lié directement à l'entité
+                'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '2M',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                            'image/webp',
+                        ],
+                        'mimeTypesMessage' => 'Veuillez envoyer une image valide (jpg, png, webp)',
+                    ])
+                ],
+                'attr' => [
+                    'accept' => '.jpg,.jpeg,.png,.webp',
+                ],
             ])
             ->add('date_debut', null, [
                 'widget' => 'single_text',
-                'label' => "Date de début *"
+                'label' => "Date de début *",
+                'required' => true, 
             ])
             ->add('date_fin', null, [
                 'widget' => 'single_text',
-                'label' => "Date de fin *"
+                'label' => "Date de fin *",
+                'required' => true, 
             ])
             ->add('date_ouverture', null, [
                 'widget' => 'single_text',
@@ -208,16 +230,22 @@ class AlternanceType extends AbstractType
                 'widget' => 'single_text',
             ])
             ->add('description', null, [
-                'label'=>"Description de l'offre *"
+                'label'=>"Description de l'offre *",
+                'required' => true, 
             ])
             ->add('mission', null, [
-                'label'=>"Missions *"
+                'label'=>"Missions *",
+                'required' => true, 
             ])
-            ->add('processus')
+            ->add('processus',null,[
+                'label'=>"Processus de recrutement",
+            ])
             ->add('annee_experience', null, [
-                'label'=>"Année(s) d'expérience *"
+                'label'=>"Année(s) d'expérience *",
+                'required' => true, 
             ])
             ->add('reconversible')
+
             // ajout du bouton
             ->add('submit', SubmitType::class, [
                 'label'=> 'Enregistrer'

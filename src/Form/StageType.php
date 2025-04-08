@@ -5,7 +5,9 @@ namespace App\Form;
 use App\Entity\Stage;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
@@ -14,7 +16,10 @@ class StageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title')
+            ->add('title', null, [
+                'label' => "Titre *",
+                'required' => true, 
+            ])
             ->add('metier', ChoiceType::class, [
                 'label' => 'Métier',
                 'choices' => [
@@ -186,23 +191,54 @@ class StageType extends AbstractType
                 ],
                 'placeholder' => 'Choisissez un métier',
             ])
-            ->add('img')
+            ->add('img', FileType::class, [
+                'label' => 'Image de l\'annonce (JPG, PNG, WEBP)',
+                'mapped' => false, // pas lié directement à l'entité
+                'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '2M',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                            'image/webp',
+                        ],
+                        'mimeTypesMessage' => 'Veuillez envoyer une image valide (jpg, png, webp)',
+                    ])
+                ],
+                'attr' => [
+                    'accept' => '.jpg,.jpeg,.png,.webp',
+                ],
+            ])
             ->add('date_debut', null, [
-                'widget' => 'single_text',
+                'label' => "Date de début *",
+                'required' => true, 
             ])
             ->add('date_fin', null, [
-                'widget' => 'single_text',
+                'label' => "Date de fin *",
+                'required' => true, 
             ])
             ->add('date_ouverture', null, [
-                'widget' => 'single_text',
+                'label' => "Date de d'ouverture",
             ])
             ->add('date_cloture', null, [
-                'widget' => 'single_text',
+                'label' => "Date de clôture ",
             ])
-            ->add('description')
-            ->add('mission')
-            ->add('processus')
-            ->add('annee_experience')
+            ->add('description', null, [
+                'label' => "Description *",
+                'required' => true, 
+            ])
+            ->add('mission', null, [
+                'label' => "Missions *",
+                'required' => true, 
+            ])
+            ->add('processus', null, [
+                'label' => "Processus de recrutement",
+            ])
+            ->add('annee_experience', null, [
+                'label' => "Année d'expérience *",
+                'required' => true, 
+            ])
             ->add('reconversible')
             // ajout du bouton
             ->add('submit', SubmitType::class, [

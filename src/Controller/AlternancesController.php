@@ -44,6 +44,8 @@ final class AlternancesController extends AbstractController
      * @param EntityManagerInterface $entityManager (dépendance) Gestionnaire d'entités
      * @param Request $request (dépendance) Objet contenant la requête envoyé par le navigateur ($_POST/$_GET)
      * 
+     * @var UploadedFile $imageFile
+     * 
      * @return Response Réponse HTTP renvoyée au navigateur comportant le formulaire de création
      * */
     #[Route('/alternances/create', name: 'app_alternances_create')]
@@ -62,7 +64,30 @@ final class AlternancesController extends AbstractController
 
         // tester si le formulaire à été soumis ou pas
         if ($formAlternanceCreate->isSubmitted() && $formAlternanceCreate->isValid()){
-            
+
+            $imageFile = $formAlternanceCreate->get('img')->getData();
+        
+            if ($imageFile) {
+                $newFilename = uniqid().'.'.$imageFile->guessExtension();
+        
+                $imageFile->move(
+                    $this->getParameter('images_directory'), 
+                    $newFilename
+                );
+
+                $alternance->setImg($newFilename);
+            }
+        
+            $entityManager->persist($alternance);
+            $entityManager->flush();
+        
+            $this->addFlash(
+                'success',
+                "La création a bien été enregistrée"
+            );
+        
+            return $this->redirectToRoute('app_alternances');
+        
             // prépare les données à être sauvegarder en base
             $entityManager->persist($alternance);
 

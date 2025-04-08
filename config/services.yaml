@@ -7,6 +7,8 @@ parameters:
     # pour le téléchargement des fichiers PDF de postuler
     cv_directory: '%kernel.project_dir%/public/uploads/cvs'
     lettre_motivation_directory: '%kernel.project_dir%/public/uploads/lettres'
+    images_directory: '%kernel.project_dir%/public/uploads/images'
+    
 services:
     # default configuration for services in *this* file
     _defaults:

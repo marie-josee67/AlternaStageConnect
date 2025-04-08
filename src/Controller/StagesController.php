@@ -62,8 +62,37 @@ final class StagesController extends AbstractController
 
         // tester si le formulaire à été soumis ou pas
         if ($formStageCreate->isSubmitted() && $formStageCreate->isValid()){
+
+            // gestion de l'image uploadée
+            /** @var UploadedFile $imageFile */
+            $imageFile = $formStageCreate->get('img')->getData();
+        
+            if ($imageFile) {
+                $newFilename = uniqid().'.'.$imageFile->guessExtension();
+        
+                // déplace le fichier vers le répertoire public/uploads/images
+                $imageFile->move(
+                    $this->getParameter('images_directory'),
+                    $newFilename
+                );
+        
+                // enregistre le nom du fichier dans l'entité
+                $stage->setImg($newFilename);
+            }
+        
+            // enregistrement de l'objet
+            $entityManager->persist($stage);
+            $entityManager->flush();
+        
+            $this->addFlash(
+                'success',
+                "La création a bien été enregistrée"
+            );
+        
+            return $this->redirectToRoute('app_stages'); 
             
-            // prépare les données à être sauvegarder en base
+            
+            //prépare les données à être sauvegarder en base
             $entityManager->persist($stage);
 
             //enregistre les données en base et créer l'Id unique
@@ -192,7 +221,7 @@ final class StagesController extends AbstractController
     }
     /* ********************************** postuler à une stage ***************************************************  */
     /**
-     * Route pour postuler à une alternance
+     * Route pour postuler à un stage
      * 
      * @route stage/postuler/{id}
      * @name app_stage_postuler
@@ -201,7 +230,6 @@ final class StagesController extends AbstractController
      * @param EntityManagerInterface $entityManager (dépendance) Gestionnaire d'entités
      * @param Request $request (dépendance) Objet contenant la requête envoyé par le navigateur ($_POST/$_GET)
      * 
-     *
      * @return Response Réponse HTTP renvoyée au navigateur
      */
 
@@ -209,7 +237,7 @@ final class StagesController extends AbstractController
      public function postuler(Stage $stage, EntityManagerInterface $entityManager, Request $request): Response
      {
          if (!$stage) {
-             throw $this->createNotFoundException('Offre alternance introuvable');
+             throw $this->createNotFoundException('Offre stageintrouvable');
          }
      
          // Création de l'objet Postuler
@@ -275,13 +303,13 @@ final class StagesController extends AbstractController
              $this->addFlash('success', 'Votre candidature à l\'alternance a été envoyée !');
      
              // Rediriger vers la page de l'annonce (ajuster le code de redirection si nécessaire)
-             return $this->redirectToRoute('app_alternances_postuler', ['id' => $stage->getId()], 304);
+             return $this->redirectToRoute('app_stages_postuler', ['id' => $stage->getId()], 304);
          }
      
          // Affichage du formulaire dans la vue
-         return $this->render('alternances/postuler.html.twig', [
+         return $this->render('stages/postuler.html.twig', [
              'form' => $formStagePostuler->createView(),
-             'alternance' => $stage,  // Pour afficher des détails de l'alternance si nécessaire
+             'stage' => $stage,  // Pour afficher des détails de l'alternance si nécessaire
          ]);
      }
 }
