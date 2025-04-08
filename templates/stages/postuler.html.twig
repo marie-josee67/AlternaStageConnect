@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Postuler à une alternance{% endblock %}
+
+{% block body %}
+    <div class="example-wrapper">
+        <div id="headerPage" >
+            <h1>Postuler au stage : {{ stage.title }} </h1>
+            <a href="{{ path('app_stages') }}"> Retourner à la liste </a>
+        </div>
+    </div>
+<div class="container">
+        <div class="row row-cols-1">
+    <form method="post">
+        {{ form_start(form) }}
+
+        {{ form_end(form) }}
+        <div id="postuler" class="row row-cols-4">
+            <twig:BootstrapButton type="primary" path="{{ path('app_stages') }}" text="Envoyer ma candidature" />
+        </div>
+    </form>
+ </div>
+    </div>
+    {# {{ dump(request )}}  #}
+
+{% endblock %}

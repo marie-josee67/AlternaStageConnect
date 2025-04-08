@@ -4,11 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Stage;
 use App\Form\StageType;
+use App\Entity\Postuler;
+use App\Form\PostulerType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 final class StagesController extends AbstractController
 {
@@ -188,4 +191,97 @@ final class StagesController extends AbstractController
         }
     }
     /* ********************************** postuler à une stage ***************************************************  */
+    /**
+     * Route pour postuler à une alternance
+     * 
+     * @route stage/postuler/{id}
+     * @name app_stage_postuler
+     * 
+     * @param Stage $stage Entité Stage correspondante à l'ID transmise dans l'URL
+     * @param EntityManagerInterface $entityManager (dépendance) Gestionnaire d'entités
+     * @param Request $request (dépendance) Objet contenant la requête envoyé par le navigateur ($_POST/$_GET)
+     * 
+     *
+     * @return Response Réponse HTTP renvoyée au navigateur
+     */
+
+     #[Route('/stages/postuler/{id<\d+>}', name: 'app_stages_postuler')]
+     public function postuler(Stage $stage, EntityManagerInterface $entityManager, Request $request): Response
+     {
+         if (!$stage) {
+             throw $this->createNotFoundException('Offre alternance introuvable');
+         }
+     
+         // Création de l'objet Postuler
+         $postuler = new Postuler();
+     
+         // Création et traitement du formulaire
+         $formStagePostuler = $this->createForm(PostulerType::class, $postuler);
+         $formStagePostuler->handleRequest($request);
+     
+         // On vérifie que le formulaire a été soumis et que les données sont valides
+         if ($formStagePostuler->isSubmitted() && $formStagePostuler->isValid()) {
+     
+             // Lier la candidature à l'alternance
+             $postuler->setStage($stage);
+     
+             // Récupérer les fichiers téléchargés par l'utilisateur
+             $cv = $formStagePostuler->get('cv')->getData();
+             $lettreMotivationFile = $formStagePostuler->get('lettreMotivation')->getData();
+     
+             // Gérer l'upload du CV si un fichier a été téléchargé
+             if ($cv) {
+                 $cvName = uniqid() . '.' . $cv->guessExtension();
+     
+                 try {
+                     // Déplacer le fichier dans le répertoire des uploads (assure-toi de définir le chemin dans services.yaml)
+                     $cv->move(
+                         $this->getParameter('cv_directory'),
+                         $cvName
+                     );
+     
+                     // Assigner le nom du fichier à l'entité Postuler
+                     $postuler->setCv($cvName);
+                 } catch (FileException $e) {
+                     $this->addFlash('error', 'Erreur lors de l\'enregistrement du CV');
+                 }
+             }
+     
+             // Gérer l'upload de la lettre de motivation si un fichier a été téléchargé
+             if ($lettreMotivationFile) {
+                 $lettreMotivationFileName = uniqid() . '.' . $lettreMotivationFile->guessExtension();
+     
+                 try {
+                     // Déplacer le fichier dans le répertoire des uploads
+                     $lettreMotivationFile->move(
+                         $this->getParameter('lettre_motivation_directory'),
+                         $lettreMotivationFileName
+                     );
+     
+                     // Assigner le nom du fichier à l'entité Postuler
+                     $postuler->setLettreMotivation($lettreMotivationFileName);
+                 } catch (FileException $e) {
+                     $this->addFlash('error', 'Erreur lors de l\'enregistrement de la lettre de motivation');
+                 }
+             }
+     
+             // Sauvegarde de l'objet Postuler en BDD
+             $entityManager->persist($postuler);
+     
+             // Mise à jour des données en base
+             $entityManager->flush();
+     
+             // Message de succès
+             $this->addFlash('success', 'Votre candidature à l\'alternance a été envoyée !');
+     
+             // Rediriger vers la page de l'annonce (ajuster le code de redirection si nécessaire)
+             return $this->redirectToRoute('app_alternances_postuler', ['id' => $stage->getId()], 304);
+         }
+     
+         // Affichage du formulaire dans la vue
+         return $this->render('alternances/postuler.html.twig', [
+             'form' => $formStagePostuler->createView(),
+             'alternance' => $stage,  // Pour afficher des détails de l'alternance si nécessaire
+         ]);
+     }
 }
