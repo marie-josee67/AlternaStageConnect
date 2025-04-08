@@ -8,7 +8,7 @@
     {% endfor %}
     <div class="example-wrapper">
         <div id="headerPage" >
-                <h1>Register</h1>
+                <h1>Inscription</h1>
         </div>
     </div>
     <div class="container">
@@ -16,6 +16,15 @@
             {{ form_errors(registrationForm) }}
 
             {{ form_start(registrationForm) }}
+
+                {{ form_row(registrationForm.lastname,{
+                    label:'Nom'
+                }) }}
+
+                {{ form_row(registrationForm.firstname,{
+                    label:"Prénom"
+                }) }}
+
                 {{ form_row(registrationForm.email) }}
                 {{ form_row(registrationForm.plainPassword, {
                     label: 'Mot de passe'
@@ -23,7 +32,7 @@
                 {{ form_row(registrationForm.agreeTerms, {
                     label:"Conditions générale d'utilisation"
                 }) }}
-
+                {# <twig:BootstrapButton type="primary" path="{{ path('app_stages') }}" text="Enregistrer" /> #}
                 <button type="submit" class="btn btn-primary">Enregistrer</button>
             {{ form_end(registrationForm) }}
         </div>
