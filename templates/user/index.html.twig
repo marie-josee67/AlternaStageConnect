@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des utilisateurs{% endblock %}
+
+{% block body %}
+    <div class="example-wrapper">
+        <div id="headerPage" >
+        <h2>Gestion des utilisateurs</h2>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row row-cols-1">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th>E-Mail</th>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        {# <th>Rôles</th>
+                        <th>Actions</th> #}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <th scope="row">{{ user.id }}</th>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.lastname}}</td>
+                        <td>{{ user.firstname }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
