@@ -18,7 +18,7 @@ final class StagesController extends AbstractController
     /**
      * Page d'affichage de la liste complète des stages en base
      * 
-     * @route astages/
+     * @route stages/
      * @name app_stages
      * @methods GET
      * 
