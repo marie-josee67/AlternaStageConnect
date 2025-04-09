@@ -5,11 +5,13 @@ namespace App\Controller;
 use index;
 use App\Repository\StageRepository;
 use App\Repository\AlternanceRepository;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\Loader\Configurator\mailer;
+
 
 /**
  * Contrôleur de la page d'accueil et des pages statiques
@@ -44,5 +46,24 @@ final class HomeController extends AbstractController
             'alternances' => $selectedAlternances,
             'stages' => $selectedStages,
         ]);
+    }
+
+    #[Route('/mailer', name:'app_mailer')]
+    public function mailer(MailerInterface $mailer)
+    {
+        $email = (new Email())
+            ->from('contact@alternancestageconnect.fr')
+            ->to('test@hotmail.com')
+            ->subject('Inscription réussie')
+            // ->htmlTemplate('email/index.html.twig');
+            ->html("<p>Bienvenue'</p>");
+        $mailer->send($email);
+
+        // return $this->render('email/index.html.twig', [
+        //     'Email bien envoyer',
+        // ]);
+        return new Response(
+            'Email bien envoyer'
+         );
     }
 }
