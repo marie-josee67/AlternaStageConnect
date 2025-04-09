@@ -45,17 +45,4 @@ final class HomeController extends AbstractController
             'stages' => $selectedStages,
         ]);
     }
-
-    // // pour l'envoi d'e-mail 
-    // public function mail(MailerInterface$mailer): Response
-    // { 
-    //     $email = (new Email())
-    //     ->from('hello@example.com')
-    //     ->to('test@hotmail.fr')
-    //     ->subject('Objetdu mail')
-    //     ->text('Sending emails is fun again!') // Format TEXT
-    //     ->html('<p>See Twig integration for better HTML integration!</p>'); // Format HTML
-    //     $mailer->send($email);
-        
-    // }
 }
