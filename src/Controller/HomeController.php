@@ -2,14 +2,29 @@
 
 namespace App\Controller;
 
+use index;
 use App\Repository\StageRepository;
 use App\Repository\AlternanceRepository;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+/**
+ * Contrôleur de la page d'accueil et des pages statiques
+ */
 final class HomeController extends AbstractController
-{
+{ 
+    /**
+    * Page d'accueil de l'application
+    * Cette page sera accessible par défaut lorsque l'on arrive sur le site
+    * 
+    * @route /
+    * @name app_home
+    * 
+    * @return Response Réponse HTTP renvoyée au navigateur
+    */
     #[Route('/', name: 'app_home')]
     public function index(AlternanceRepository $alternanceRepository, StageRepository $stageRepository): Response
     {
@@ -30,4 +45,17 @@ final class HomeController extends AbstractController
             'stages' => $selectedStages,
         ]);
     }
+
+    // // pour l'envoi d'e-mail 
+    // public function mail(MailerInterface$mailer): Response
+    // { 
+    //     $email = (new Email())
+    //     ->from('hello@example.com')
+    //     ->to('test@hotmail.fr')
+    //     ->subject('Objetdu mail')
+    //     ->text('Sending emails is fun again!') // Format TEXT
+    //     ->html('<p>See Twig integration for better HTML integration!</p>'); // Format HTML
+    //     $mailer->send($email);
+        
+    // }
 }
