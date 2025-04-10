@@ -2,8 +2,11 @@
 
 namespace App\Tests;
 
-use App\Repository\UserRepository;
+use DateTime;
+use App\Entity\Alternance;
 use Doctrine\ORM\EntityManager;
+use PHPUnit\Framework\TestCase;
+use App\Repository\UserRepository;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -30,7 +33,7 @@ class RegistrationControllerTest extends WebTestCase
 
         $em->flush();
     }
-
+    /* ***************************** test register ******************************************* */
     public function testRegister(): void
     {
         // Register a new user
@@ -80,5 +83,28 @@ class RegistrationControllerTest extends WebTestCase
         $this->client->followRedirect();
 
         self::assertTrue(static::getContainer()->get(UserRepository::class)->findAll()[0]->isVerified());
+    }
+
+}
+/* ********************************* test unitaire entiter alternance ******************************** */
+class AlteranceTest extends TestCase
+{
+    public function testCanGetAndSetAttributes(): void
+    {
+    $strDescription = "Ceci est une description";
+    $strMetier = "developpeur";
+    $strTitre = "developpeur web junior";
+    $strMission = "html";
+    
+    $alternance = new Alternance();
+    $alternance->setDescription($strDescription)
+                ->setMetier($strMetier)
+                ->setTitre($strTitre)
+                ->setMission($strMission);
+   
+    self::assertSame($strDescription, $alternance->getDescription());
+    self::assertSame($strMetier, $alternance->getMetier());
+    self::assertSame($strTitre, $alternance->getTitre());
+    self::assertSame($strMission, $alternance->getMission());
     }
 }
