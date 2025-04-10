@@ -131,7 +131,7 @@ body{
     /* border:2px solid red; */
 }
 
-/* ************************************** Page - Home card *************************************** */
+/* ************************************** Page - Home cards *************************************** */
 
 .custom-card {
     min-height: 23rem;
@@ -148,4 +148,11 @@ body{
 
 .custom-card .btn-card {
     margin-top: auto; /* pousse le bouton en bas */
+}
+
+/* ************************************** Page - Alternancse et Stages Cards *************************************** */
+
+#carte{
+    min-height: 23rem;
+    /* border:2px solid darkmagenta; */
 }
