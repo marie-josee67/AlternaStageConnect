@@ -130,3 +130,22 @@ body{
     margin-top: 1rem;
     /* border:2px solid red; */
 }
+
+/* ************************************** Page - Home card *************************************** */
+
+.custom-card {
+    min-height: 23rem;
+    display: flex;
+    flex-direction: column;
+    border:2px solid rebeccapurple; 
+}
+
+.custom-card .card-body {
+    flex: 1; /* prend tout l’espace dispo entre l’image et le bas */
+    display: flex;
+    flex-direction: column;
+}
+
+.custom-card .btn-card {
+    margin-top: auto; /* pousse le bouton en bas */
+}
