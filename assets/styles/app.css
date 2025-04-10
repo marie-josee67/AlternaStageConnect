@@ -89,14 +89,17 @@ body{
 }
 
 #detailImg{
-    /* display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;  */
-    max-width: 30rem;
-    height: 10rem; 
+    max-width: 40rem;
+    height: 15rem; 
     text-align: center;
     /* border:2px solid coral; */
+}
+
+#zoneImg{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    /* border: 2px solid orchid; */
 }
 
 #postuler{
