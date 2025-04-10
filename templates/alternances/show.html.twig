@@ -18,7 +18,8 @@
         <p id="detailExp">Année(s) d'expérience : <strong> {{alternance.anneeExperience}}</strong></p>
         <hr>
         <div>
-            <img id="detailImg" src="{{alternance.img}}"/>
+            <img id="detailImg" src="{{ asset('uploads/images/' ~ alternance.img) }}"/>
+            {# <img src="{{ asset('uploads/images/' ~ alternance.img) }}" alt="{{ alternance.titre }}"> #}
         </div>
         <h2> Dates : </h2>
         </div>

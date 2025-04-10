@@ -23,7 +23,7 @@
             {% for alternance in alternances %}
                 <div class="col-md-3 mb-4">
                     <div class="card">
-                        <img src="{{ alternance.img }}" class="card-img-top" alt="Image de l'alternance">
+                        <img src="{{ asset('uploads/images/' ~ alternance.img) }}" class="card-img-top" alt="Image de l'alternance">
                         <div class="card-body">
                             <h5 class="card-title">{{ alternance.titre }}</h5>
                             <p class="card-text">{{ alternance.metier }}</p>
@@ -46,7 +46,7 @@
             {% for stage in stages %}
                 <div class="col-md-3 mb-4">
                     <div class="card">
-                        <img src="{{ stage.img }}" class="card-img-top" alt="Image du stage">
+                        <img src="{{ asset('uploads/images/' ~ stage.img) }}" class="card-img-top" alt="Image du stage">
                         <div class="card-body">
                             <h5 class="card-title">{{ stage.title }}</h5>
                             <p class="card-text">{{ stage.metier }}</p>

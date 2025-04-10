@@ -3,8 +3,8 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %} 
-
-    <form method="post">
+{{ dump(error) }}
+    <form method="post" action="{{ path('app_login') }}">
         <div class="container">
             <div class="row row-cols-1">
             {% if error %}

@@ -18,7 +18,7 @@
         <p id="detailExp">Année(s) d'expérience : <strong> {{stage.anneeExperience}}</strong></p>
         <hr>
         <div>
-            <img id="detailImg" src="{{stage.img}}"/>
+            <img id="detailImg" src="{{ asset('uploads/images/' ~ stage.img) }}"/>
         </div>
         <h2> Dates : </h2>
         </div>

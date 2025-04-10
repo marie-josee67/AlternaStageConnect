@@ -29,8 +29,8 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
             ->add('plainPassword', PasswordType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
+                // Au lieu d'être placé directement sur l'objet,
+                // Ceci est lu et codé dans le contrôleur
                 'mapped' => false,
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
@@ -40,7 +40,7 @@ class RegistrationFormType extends AbstractType
                     new Length([
                         'min' => 6,
                         'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        // max length allowed by Symfony for security reasons
+                        // longueur maximale autorisée par Symfony pour des raisons de sécurité
                         'max' => 4096,
                     ]),
                 ],
