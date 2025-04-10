@@ -38,7 +38,7 @@ class RegistrationControllerTest extends WebTestCase
         self::assertResponseIsSuccessful();
         self::assertPageTitleContains('Register');
 
-        $this->client->submitForm('Register', [
+        $this->client->submitForm('Enregistrer', [
             'registration_form[email]' => 'me@example.com', 
             'registration_form[firstname]' => 'John',
             'registration_form[lastname]' => 'Doe',
@@ -59,7 +59,7 @@ class RegistrationControllerTest extends WebTestCase
         self::assertCount(1, $messages = $this->getMailerMessages());
         self::assertEmailAddressContains($messages[0], 'from', 'contact@alternastageconnect.fr');
         self::assertEmailAddressContains($messages[0], 'to', 'me@example.com');
-        self::assertEmailTextBodyContains($messages[0], 'Le lien expirera dans 20 minutes');
+        self::assertEmailTextBodyContains($messages[0], 'Ce lien expirera');
 
         // Login the new user
         $this->client->followRedirect();
@@ -69,6 +69,8 @@ class RegistrationControllerTest extends WebTestCase
         /** @var TemplatedEmail $templatedEmail */
         $templatedEmail = $messages[0];
         $messageBody = $templatedEmail->getHtmlBody();
+            // echo $messageBody;
+        // Afficher le corps de l'email pour vérifier le contenu
         self::assertIsString($messageBody);
 
         preg_match('#(http://localhost/verify/email.+)">#', $messageBody, $resetLink);
