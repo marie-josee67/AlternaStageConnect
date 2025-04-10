@@ -10,14 +10,16 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserFixture extends Fixture
 {
-
+    // instanciation de symfony comme un service
+    // crécupération du service de hachage de mot de passe
     public function __construct(
         private UserPasswordHasherInterface $userPasswordHasher
     )
     {
         
     }
-
+    
+    /* ********************************** création d'utilisateur ***************************************************  */
     public function load(ObjectManager $manager, ): void
     {
         $nbUsers = 5;
