@@ -17,8 +17,8 @@
                         <th>E-Mail</th>
                         <th>Nom</th>
                         <th>Prénom</th>
-                        {# <th>Rôles</th>
-                        <th>Actions</th> #}
+                        <th>Rôles</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -28,6 +28,11 @@
                         <td>{{ user.email }}</td>
                         <td>{{ user.lastname}}</td>
                         <td>{{ user.firstname }}</td>
+                        <td>
+                        <twig:BootstrapFormModal id="{{user.id}}"/>
+                        
+                        </td>
+
                         <td> 
                         <twig:BootstrapButton path="{{ path('app_user_delete', { id: user.id }) }}" text="Supprimer" type="danger" />
                     </tr>
