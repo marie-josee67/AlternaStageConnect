@@ -38,7 +38,7 @@
                             <ul class= "list-group">
                                 <li class="list-group-item">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="user-role-modal{{ user.id }}-user" checked>
+                                        <input class="form-check-input" type="checkbox" id="user-role-modal{{ user.id }}-user" {% if user|has_role('ROLE_USER') %}checked{% endif %}>
                                         <label class="form-check-label" for="user-role-modal{{ user.id }}-user">
                                             Utilisateur (par défault)
                                         </label>
@@ -46,7 +46,7 @@
                                 </li>
                                 <li class="list-group-item">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="user-role-modal{{ user.id }}-modo" >
+                                        <input class="form-check-input" type="checkbox" id="user-role-modal{{ user.id }}-modo" {% if user|has_role('ROLE_MODO') %}checked{% endif %}>
                                         <label class="form-check-label" for="user-role-modal{{ user.id }}-modo">
                                             Modérateur
                                         </label>
@@ -54,7 +54,7 @@
                                 </li>
                                 <li class="list-group-item">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="user-role-modal{{ user.id }}-admin">
+                                        <input class="form-check-input" type="checkbox" id="user-role-modal{{ user.id }}-admin" {% if user|has_role('ROLE_ADMIN') %}checked{% endif %}>
                                         <label class="form-check-label" for="user-role-modal{{ user.id }}-admin">
                                             Administrateur
                                         </label>
@@ -62,8 +62,8 @@
                                 </li>
                                 <li class="list-group-item">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="user-role-modal{{ user.id }}-superAd">
-                                        <label class="form-check-label" for="user-role-modal{{ user.id }}-superAd">
+                                        <input class="form-check-input" type="checkbox" id="user-role-modal{{ user.id }}-super"{% if user|has_role('ROLE_SUPER') %}checked{% endif %}>
+                                        <label class="form-check-label" for="user-role-modal{{ user.id }}-super">
                                             Super Administrateur
                                         </label>
                                     </div>

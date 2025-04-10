@@ -2,11 +2,11 @@
 
 namespace App\Twig\Extension;
 
-use App\Twig\Runtime\AppExtensionRuntime;
-use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
-use Twig\TwigFunction;
+use Twig\Extension\AbstractExtension;
+use App\Twig\Runtime\HasRoleExtensionRuntime;
 
+// ********************************************** permet de choisir le rôle de l'utilisateur **************************************** */
 class AppExtension extends AbstractExtension
 {
     public function getFilters(): array
@@ -15,14 +15,14 @@ class AppExtension extends AbstractExtension
             // If your filter generates SAFE HTML, you should add a third
             // parameter: ['is_safe' => ['html']]
             // Reference: https://twig.symfony.com/doc/3.x/advanced.html#automatic-escaping
-            new TwigFilter('filter_name', [AppExtensionRuntime::class, 'doSomething']),
+            new TwigFilter('has_role', [HasRoleExtensionRuntime::class, 'hasRole']),
         ];
     }
 
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('function_name', [AppExtensionRuntime::class, 'doSomething']),
+          
         ];
     }
 }
