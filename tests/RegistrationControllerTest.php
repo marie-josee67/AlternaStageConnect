@@ -87,7 +87,7 @@ class RegistrationControllerTest extends WebTestCase
 
 }
 /* ********************************* test unitaire entiter alternance ******************************** */
-class AlteranceTest extends TestCase
+class AlternanceTest extends TestCase
 {
     public function testCanGetAndSetAttributes(): void
     {
