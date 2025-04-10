@@ -10,7 +10,7 @@
     </div>
     <div class="container">
         <div class="row row-cols-1">
-            <table class="table">
+            <table class="table table-striped">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -35,30 +35,40 @@
                                 modalId="userRoleModal{{ user.id }}"
                                 modelTitle=" Quel rôle pour : {{ user.lastname }} {{ user.firstname }} "
                             >
-                              <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="checkChecked"checked>
-                                    <label class="form-check-label" for="checkChecked">
-                                        User
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="checkDefault" >
-                                    <label class="form-check-label" for="checkDefault">
-                                        Modérateur
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="checkDefault">
-                                    <label class="form-check-label" for="checkDefault">
-                                        Administrateur
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="checkDefault">
-                                    <label class="form-check-label" for="checkDefault">
-                                        Super Administrateur
-                                    </label>
-                                </div>
+                            <ul class= "list-group">
+                                <li class="list-group-item">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="user-role-modal{{ user.id }}-user" checked>
+                                        <label class="form-check-label" for="user-role-modal{{ user.id }}-user">
+                                            Utilisateur (par défault)
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="user-role-modal{{ user.id }}-modo" >
+                                        <label class="form-check-label" for="user-role-modal{{ user.id }}-modo">
+                                            Modérateur
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="user-role-modal{{ user.id }}-admin">
+                                        <label class="form-check-label" for="user-role-modal{{ user.id }}-admin">
+                                            Administrateur
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="user-role-modal{{ user.id }}-superAd">
+                                        <label class="form-check-label" for="user-role-modal{{ user.id }}-superAd">
+                                            Super Administrateur
+                                        </label>
+                                    </div>
+                                </li>
+                            </ul>
                             </twig:BootstrapFormModal>
                         </td>
 
