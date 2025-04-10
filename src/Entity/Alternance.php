@@ -70,6 +70,11 @@ class Alternance
     #[ORM\ManyToMany(targetEntity: Competences::class, mappedBy: 'Competences')]
     private Collection $competences;
 
+
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+
     public function __construct()
     {
         $this->avis = new ArrayCollection();
@@ -302,6 +307,18 @@ class Alternance
         if ($this->competences->removeElement($competence)) {
             $competence->removeCompetence($this);
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

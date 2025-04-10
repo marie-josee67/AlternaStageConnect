@@ -70,6 +70,10 @@ class Stage
     #[ORM\ManyToMany(targetEntity: Competences::class, mappedBy: 'Stage')]
     private Collection $competences;
 
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+
     public function __construct()
     {
         $this->avis = new ArrayCollection();
@@ -302,6 +306,18 @@ class Stage
         if ($this->competences->removeElement($competence)) {
             $competence->removeStage($this);
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

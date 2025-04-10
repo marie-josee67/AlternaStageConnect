@@ -80,6 +80,9 @@ final class StagesController extends AbstractController
                 $stage->setImg($newFilename);
             }
         
+            // Associer l'utilisateur connecté à l'alternance
+            $stage->setUser($this->getUser());
+            
             // enregistrement de l'objet
             $entityManager->persist($stage);
             $entityManager->flush();

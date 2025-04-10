@@ -81,6 +81,9 @@ final class AlternancesController extends AbstractController
                 $alternance->setImg($newFilename);
             }
         
+            // associer l'utilisateur connecter à l'annonce
+            $alternance->setUser($this->getUser());
+
             $entityManager->persist($alternance);
             $entityManager->flush();
         
