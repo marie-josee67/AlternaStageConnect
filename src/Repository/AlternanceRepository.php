@@ -2,9 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\User;
 use App\Entity\Alternance;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Alternance>
@@ -40,4 +41,12 @@ class AlternanceRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    public function findAllowed(User $user):array{
+        return $this->createQueryBuilder('a')
+        ->andWhere('a.createBy = :user')
+        ->setParameter('user', $user)
+        ->getQuery()
+        ->getResult();
+    }
 }
