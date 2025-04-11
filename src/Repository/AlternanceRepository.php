@@ -42,11 +42,4 @@ class AlternanceRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    public function findAllowed(User $user):array{
-        return $this->createQueryBuilder('a')
-        ->andWhere('a.createBy = :user')
-        ->setParameter('user', $user)
-        ->getQuery()
-        ->getResult();
-    }
 }

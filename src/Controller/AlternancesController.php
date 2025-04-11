@@ -7,7 +7,6 @@ use App\Entity\Alternance;
 use App\Form\PostulerType;
 use App\Form\AlternanceType;
 use Doctrine\ORM\EntityManagerInterface;
-use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -31,20 +30,12 @@ final class AlternancesController extends AbstractController
      * @return Response Réponse HTTP renvoyée au navigateur comportant la liste des alternances
      */ 
     #[Route('/alternances', name: 'app_alternances')]
-    public function index(EntityManagerInterface $entityManager, PaginatorInterface $paginator, Request $request): Response
+    public function index(EntityManagerInterface $entityManager): Response
     {
-        // configuration de la pagination
-        $pagination = $paginator->paginate(
-            $query="", /* query NOT result */
-            $request->query->getInt('page', 1), /* page number */
-            16 /* limite par page */
-        );
-
-
         $alternanceRepository = $entityManager->getRepository(Alternance::class);
         $alternances = $alternanceRepository->findAll();
         return $this->render('alternances/index.html.twig', [
-            'pagination'  => $pagination,
+            'alternances' => $alternances,
         ]);
     }
 

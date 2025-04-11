@@ -16,7 +16,7 @@
         <div class="row row-cols-1 row-cols-md-4 g-4">
 
             {# ********************* Les cards ****************** #}
-            {% for alternance in pagination %}
+            {% for alternance in alternances %}
                 <div class="col mb-4">
                     <twig:BootstrapCard
                         title="{{ alternance.titre }}"
@@ -37,8 +37,4 @@
 
     {# {{dump(alternances)}} #}
     
-    {# display navigation de la pagination #}
-    <div class="navigation">
-        {{ knp_pagination_render(pagination) }}
-    </div>
 {% endblock %}
