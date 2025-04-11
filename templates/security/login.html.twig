@@ -4,8 +4,8 @@
 
 {% block body %} 
 {# {{ dump(error) }} #}
-    <form method="post" action="{{ path('app_login') }}">
-        <div class="container">
+    <div class="container">
+        <form method="post" action="{{ path('app_login') }}">
             <div class="row row-cols-1">
             {% if error %}
                 <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -44,6 +44,6 @@
                 <button class="btn btn-primary" type="submit"> Connexion </button>
             </div> 
             <p><a href="{{ path('app_forgot_password_request') }}"> Mot de passe oublié ? </a></p>
-        </div>
-    </form>
+        </form>
+    </div>
 {% endblock %}
