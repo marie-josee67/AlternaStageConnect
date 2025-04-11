@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon Profil{% endblock %}
+
+{% block body %}
+    <div class="example-wrapper">
+        <div id="headerPage" >
+            <h1>Mon Profil</h1>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row row-cols-1">
+            <p>Nom : {{ user.lastname }}</p>
+            <p>Prénom : {{ user.firstname }}</p>
+            <p>Email : {{ user.email }}</p>
+        </div>
+    
+        <a href="{{ path('app_user_edit') }}" class="btn btn-primary">Modifier mon profil</a>
+        <a href="{{ path('app_user_delete') }}" class="btn btn-danger"
+           onclick="return confirm('Es-tu sûr(e) de vouloir supprimer ton compte {{user.firstname}} {{user.lastname}} ? Cette action est irréversible !');">
+            Supprimer mon compte
+        </a>
+    </div>
+{% endblock %}

@@ -3,11 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\UserType;
 use App\Repository\UserRepository;
+use Symfony\Component\Form\FormError;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
+// use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 final class UserController extends AbstractController
 {
@@ -40,7 +45,7 @@ final class UserController extends AbstractController
      * @route user/delete/{id}
      * @name app_user_delete
      * 
-     * @param SUser Entité User correspondante à l'ID transmise dans l'URL
+     * @param User Entité User correspondante à l'ID transmise dans l'URL
      * @param EntityManagerInterface $entityManager (dépendance) Gestionnaire d'entités
      *
      * @return Response Réponse HTTP renvoyée au navigateur
@@ -75,5 +80,108 @@ final class UserController extends AbstractController
             return $this->redirectToRoute('app_user');
         }
 
+    }
+    /* ********************************** Profil utilisateur ***************************************************  */
+    /**
+     * Route profil d'un utilisateur
+     * 
+     * @route user/profil
+     * @name app_user_profil
+     * 
+     * @param User Entité User correspondante à l'ID transmise dans l'URL
+     * @param EntityManagerInterface $entityManager (dépendance) Gestionnaire d'entités
+     *
+     * @return Response Réponse HTTP renvoyée au navigateur
+     */
+    #[Route('/user/profil', name: 'app_user_profil')]
+    public function profile(): Response
+    {
+        // utilisateur connecter
+        $user = $this->getUser();
+
+        if (!$user) {
+            throw $this->createAccessDeniedException("Vous devez être connecté pour accéder à votre profil.");
+        }
+
+        return $this->render('user/profil.html.twig', [
+            'user' => $user,
+        ]);
+    }
+
+    /* ********************************** Éditer le profil utilisateur ***************************************************  */
+    /**
+     * Route edit profil d'un utilisateur
+     * 
+     * @route user/edit
+     * @name app_user_edit
+     * 
+     * @param User Entité User correspondante à l'ID transmise dans l'URL
+     * @param EntityManagerInterface $entityManager (dépendance) Gestionnaire d'entités
+     *
+     * @return Response Réponse HTTP renvoyée au navigateur
+     */
+    #[Route('/user/edit', name: 'app_user_edit')]
+    public function editProfile(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
+    {
+        $user = $this->getUser();
+
+        $formProfilEdit = $this->createForm(UserType::class, $user);
+        $formProfilEdit->handleRequest($request);
+
+        // Si le formulaire est soumis et valide
+    if ($formProfilEdit->isSubmitted() && $formProfilEdit->isValid()) {
+        // Récupérer le mot de passe en clair
+        $plainPassword = $formProfilEdit->get('plainPassword')->getData();
+        $confirmPassword = $formProfilEdit->get('confirmPassword')->getData();  // Récupérer la confirmation
+
+        // Vérifier que les mots de passe correspondent
+        if ($plainPassword !== $confirmPassword) {
+            $formProfilEdit->get('confirmPassword')->addError(new FormError('Les mots de passe ne correspondent pas.'));
+        } else {
+            // Si les mots de passe correspondent, les hasher et les enregistrer
+            if (!empty($plainPassword)) {
+                $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
+                $user->setPassword($hashedPassword); // Mettre à jour le mot de passe
+            }
+
+            // Sauvegarder les modifications dans la base de données
+            $entityManager->flush();
+
+            // Afficher un message de succès
+            $this->addFlash('success', 'Profil mis à jour !');
+            return $this->redirectToRoute('app_user_profil');
+        }
+    }
+
+
+        return $this->render('user/edit.html.twig', [
+            'formProfilEdit' => $formProfilEdit->createView(),
+        ]);
+    }
+
+     /* ********************************** Supprimer le profil utilisateur ***************************************************  */
+    /**
+     * Route supprimer profil d'un utilisateur
+     * 
+     * @route user/delete
+     * @name app_user_delete
+     * 
+     * @param User Entité User correspondante à l'ID transmise dans l'URL
+     * @param EntityManagerInterface $entityManager (dépendance) Gestionnaire d'entités
+     *
+     * @return Response Réponse HTTP renvoyée au navigateur
+     */
+    #[Route('/user/delete', name: 'app_user_delete')]
+    public function deleteMyself(EntityManagerInterface $entityManager): Response
+    {
+        $user = $this->getUser();
+
+        $entityManager->remove($user);
+        $entityManager->flush();
+
+        // Déconnecter l'utilisateur
+        $security->getTokenStorage()->setToken(null);
+
+        return $this->redirectToRoute('app_home');
     }
 }
