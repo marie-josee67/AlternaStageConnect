@@ -187,3 +187,7 @@ body{
     margin: 0 5rem 0 1rem;
     /* border:2px solid darkorchid; */
 }
+
+#buttonCRUD{
+    border:2px solid hotpink;
+}

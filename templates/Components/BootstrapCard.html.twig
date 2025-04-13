@@ -1,18 +1,21 @@
-<div id="carte" class="card" >
-  {% if imgSrc %}    
-  <div class="embed-responsive embed-responsive-16by9">
-      <img src="{{ asset('uploads/images/' ~ imgSrc) }}"  class="card-img-top embed-responsive-item">
-  </div>
-  {% endif %}
+<div id="carte" class="card h-100 d-flex flex-column">
+    {% if imgSrc %}
+        <div class="embed-responsive embed-responsive-16by9">
+            <img src="{{ asset('uploads/images/' ~ imgSrc) }}" class="card-img-top embed-responsive-item">
+        </div>
+    {% endif %}
 
-  <div class="card-body">
-    <h5 class="card-title">{{ title }}</h5>
+    <div class="card-body d-flex flex-column">
+        <h5 class="card-title">{{ title }}</h5>
 
-        {# pour faire apparaitre le métier dans la card #}
         {% if metier %}
-            <p class="card-text"> {{ metier }}</p>
+            <p class="card-text">{{ metier }}</p>
         {% endif %}
-    {% block content %}{% endblock %}
-    {% block buttons %}{% endblock %}
-  </div>
+
+        {% block content %}{% endblock %}
+
+        <div class="mt-auto">
+            {% block buttons %}{% endblock %}
+        </div>
+    </div>
 </div>
