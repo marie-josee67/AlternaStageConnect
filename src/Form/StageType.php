@@ -194,7 +194,7 @@ class StageType extends AbstractType
             ->add('img', FileType::class, [
                 'label' => 'Image de l\'annonce (JPG, PNG, WEBP)',
                 'mapped' => false, // pas lié directement à l'entité
-                'required' => false,
+                'required' => true,
                 'constraints' => [
                     new File([
                         'maxSize' => '2M',
