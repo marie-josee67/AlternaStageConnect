@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
@@ -191,6 +192,146 @@ class StageType extends AbstractType
                 ],
                 'placeholder' => 'Choisissez un métier',
             ])
+            ->add('departement', ChoiceType::class, [
+                'required' => true,
+                'label' => 'Département *',    
+                'choices' => [
+                    'Partout' => '',
+                    'Auvergne' => [
+                        'Allier (03)' => 'Allier',
+                        'Cantal (15)' => 'Cantal',
+                        'Haute-Loire (43)' => 'Haute-Loire',
+                        'Puy-de-Dôme (63)' => 'Puy-de-Dôme',
+                    ],
+                    'Bourgogne' => [
+                        'Côte-d\'Or (21)' => 'Côte-d\'Or',
+                        'Nièvre (58)' => 'Nièvre',
+                        'Saône-et-Loire (71)' => 'Saône-et-Loire',
+                        'Yonne (89)' => 'Yonne',
+                    ],
+                    'Bretagne' => [
+                        'Côtes-d\'Armor (22)' => 'Côtes-d\'Armor',
+                        'Finistère (29)' => 'Finistère',
+                        'Ille-et-Vilaine (35)' => 'Ille-et-Vilaine',
+                        'Morbihan (56)' => 'Morbihan',
+                    ],
+                    'Centre-Val de Loire' => [
+                        'Cher (18)' => 'Cher',
+                        'Eure-et-Loir (28)' => 'Eure-et-Loir',
+                        'Indre (36)' => 'Indre',
+                        'Indre-et-Loire (37)' => 'Indre-et-Loire',
+                        'Loir-et-Cher (41)' => 'Loir-et-Cher',
+                        'Loiret (45)' => 'Loiret',
+                    ],
+                    'Corse' => [
+                        'Corse-du-Sud (2A)' => 'Corse-du-Sud',
+                        'Haute-Corse (2B)' => 'Haute-Corse',
+                    ],
+                    'Grand Est' => [
+                        'Ardennes (08)' => 'Ardennes',
+                        'Aube (10)' => 'Aube',
+                        'Marne (51)' => 'Marne',
+                        'Haute-Marne (52)' => 'Haute-Marne',
+                        'Meurthe-et-Moselle (54)' => 'Meurthe-et-Moselle',
+                        'Meuse (55)' => 'Meuse',
+                        'Moselle (57)' => 'Moselle',
+                        'Bas-Rhin (67)' => 'Bas-Rhin',
+                        'Haut-Rhin (68)' => 'Haut-Rhin',
+                        'Vosges (88)' => 'Vosges',
+                    ],
+                    'Hauts-de-France' => [
+                        'Aisne (02)' => 'Aisne',
+                        'Nord (59)' => 'Nord',
+                        'Oise (60)' => 'Oise',
+                        'Pas-de-Calais (62)' => 'Pas-de-Calais',
+                        'Somme (80)' => 'Somme',
+                    ],
+                    'Île-de-France' => [
+                        'Paris (75)' => 'Paris',
+                        'Seine-et-Marne (77)' => 'Seine-et-Marne',
+                        'Yvelines (78)' => 'Yvelines',
+                        'Essonne (91)' => 'Essonne',
+                        'Hauts-de-Seine (92)' => 'Hauts-de-Seine',
+                        'Seine-Saint-Denis (93)' => 'Seine-Saint-Denis',
+                        'Val-de-Marne (94)' => 'Val-de-Marne',
+                        'Val-d\'Oise (95)' => 'Val-d\'Oise',
+                    ],
+                    'Normandie' => [
+                        'Calvados (14)' => 'Calvados',
+                        'Eure (27)' => 'Eure',
+                        'Manche (50)' => 'Manche',
+                        'Orne (61)' => 'Orne',
+                        'Seine-Maritime (76)' => 'Seine-Maritime',
+                    ],
+                    'Nouvelle-Aquitaine' => [
+                        'Charente (16)' => 'Charente',
+                        'Charente-Maritime (17)' => 'Charente-Maritime',
+                        'Corrèze (19)' => 'Corrèze',
+                        'Creuse (23)' => 'Creuse',
+                        'Dordogne (24)' => 'Dordogne',
+                        'Gironde (33)' => 'Gironde',
+                        'Landes (40)' => 'Landes',
+                        'Lot-et-Garonne (47)' => 'Lot-et-Garonne',
+                        'Pyrénées-Atlantiques (64)' => 'Pyrénées-Atlantiques',
+                        'Deux-Sèvres (79)' => 'Deux-Sèvres',
+                        'Vienne (86)' => 'Vienne',
+                        'Haute-Vienne (87)' => 'Haute-Vienne',
+                    ],
+                    'Occitanie' => [
+                        'Ariège (09)' => 'Ariège',
+                        'Aude (11)' => 'Aude',
+                        'Aveyron (12)' => 'Aveyron',
+                        'Gard (30)' => 'Gard',
+                        'Haute-Garonne (31)' => 'Haute-Garonne',
+                        'Gers (32)' => 'Gers',
+                        'Hérault (34)' => 'Hérault',
+                        'Lot (46)' => 'Lot',
+                        'Lozère (48)' => 'Lozère',
+                        'Hautes-Pyrénées (65)' => 'Hautes-Pyrénées',
+                        'Pyrénées-Orientales (66)' => 'Pyrénées-Orientales',
+                        'Tarn (81)' => 'Tarn',
+                        'Tarn-et-Garonne (82)' => 'Tarn-et-Garonne',
+                    ],
+                    'Pays de la Loire' => [
+                        'Loire-Atlantique (44)' => 'Loire-Atlantique',
+                        'Maine-et-Loire (49)' => 'Maine-et-Loire',
+                        'Mayenne (53)' => 'Mayenne',
+                        'Sarthe (72)' => 'Sarthe',
+                        'Vendée (85)' => 'Vendée',
+                    ],
+                    'Provence-Alpes-Côte d\'Azur' => [
+                        'Alpes-de-Haute-Provence (04)' => 'Alpes-de-Haute-Provence',
+                        'Hautes-Alpes (05)' => 'Hautes-Alpes',
+                        'Alpes-Maritimes (06)' => 'Alpes-Maritimes',
+                        'Bouches-du-Rhône (13)' => 'Bouches-du-Rhône',
+                        'Var (83)' => 'Var',
+                        'Vaucluse (84)' => 'Vaucluse',
+                    ],
+                    'Outre-Mer' => [
+                        'Guadeloupe (971)' => 'Guadeloupe',
+                        'Martinique (972)' => 'Martinique',
+                        'Guyane (973)' => 'Guyane',
+                        'La Réunion (974)' => 'La Réunion',
+                        'Mayotte (976)' => 'Mayotte',
+                    ],
+                ],
+                'placeholder' => 'Sélectionnez un département',
+                'attr' => ['class' => 'form-select'],
+            ])
+
+             ->add('periode', ChoiceType::class, [
+                'required' => true,
+                'label' => 'Période *',
+                'choices' => [
+                    'Toutes' => '',
+                    'Octobre-Décembre' => 'Octobre-Décembre',
+                    'Janvier-Mars' => 'Janvier-Mars',
+                    'Avril-Juillet' => 'Avril-Juillet',
+                ],
+                'placeholder' => 'Sélectionnez une période',
+                'attr' => ['class' => 'form-select'],
+            ])
+            
             ->add('img', FileType::class, [
                 'label' => 'Image de l\'annonce (JPG, PNG, WEBP) *',
                 'mapped' => false, // pas lié directement à l'entité

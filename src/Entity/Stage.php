@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\StageRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -58,6 +56,13 @@ class Stage
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
+
+
+    #[ORM\Column(type:"string", length:255)]
+    private $departement;
+
+    #[ORM\Column(type:"string", length:255)]
+    private $periode;
 
     public function getId(): ?int
     {
@@ -228,6 +233,30 @@ class Stage
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getDepartement(): ?string
+    {
+        return $this->departement;
+    }
+
+    public function setDepartement(?string $departement): self
+    {
+        $this->departement = $departement;
+
+        return $this;
+    }
+
+    public function getPeriode(): ?string
+    {
+        return $this->periode;
+    }
+
+    public function setPeriode(?string $periode): self
+    {
+        $this->periode = $periode;
 
         return $this;
     }

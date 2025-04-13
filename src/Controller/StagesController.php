@@ -85,9 +85,11 @@ final class StagesController extends AbstractController
             // Associer l'utilisateur connecté à l'alternance
             $stage->setUser($this->getUser());
             
-            // enregistrement de l'objet
-            $entityManager->persist($stage);
-            $entityManager->flush();
+           //prépare les données à être sauvegarder en base
+           $entityManager->persist($stage);
+
+           //enregistre les données en base et créer l'Id unique
+           $entityManager->flush();
         
             $this->addFlash(
                 'success',
@@ -95,13 +97,6 @@ final class StagesController extends AbstractController
             );
         
             return $this->redirectToRoute('app_stages'); 
-            
-            
-            //prépare les données à être sauvegarder en base
-            $entityManager->persist($stage);
-
-            //enregistre les données en base et créer l'Id unique
-            $entityManager->flush();
         }
 
         // message
@@ -163,17 +158,33 @@ final class StagesController extends AbstractController
         // On vérifie que le formulaire a été soumis et que les données sont valides
         if($formStageEdit->isSubmitted() && $formStageEdit->isValid())
         {    
-            // Le persist n'est pas à faire en cas de modification, les données provenant déjà la base
-
+            // Gestion de la nouvelle image uploadée
+            $imageFile = $formStageEdit->get('img')->getData();
+        
+            if ($imageFile) {
+                $newFilename = uniqid().'.'.$imageFile->guessExtension();
+        
+                try {
+                    $imageFile->move(
+                        $this->getParameter('images_directory'),
+                        $newFilename
+                    );
+                    $stage->setImg($newFilename);
+                } catch (FileException $e) {
+                    $this->addFlash('error', 'Erreur lors de l\'upload de l\'image : ' . $e->getMessage());
+                }
+            }
+        
             // Met à jour les données en base
             $entityManager->flush();
-            
-            //message
+        
+            // Message flash de confirmation
             $this->addFlash(
                 'success',
                 "Les modifications ont été enregistrées"
             );
         }
+        
 
         return $this->render('stages/edit.html.twig', [
             'stage'       => $stage,
@@ -221,7 +232,7 @@ final class StagesController extends AbstractController
             );
 
             // Je redirige vers la page de la photo
-            return $this->redirectToRoute('app_picture_show', ['id' => $stage->getId()], 304);
+            return $this->redirectToRoute('app_stage_show', ['id' => $stage->getId()], 304);
         }
     }
     /* ********************************** postuler à une stage ***************************************************  */
