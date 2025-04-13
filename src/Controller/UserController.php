@@ -8,7 +8,7 @@ use App\Repository\UserRepository;
 use Symfony\Component\Form\FormError;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
-// use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -172,16 +172,21 @@ final class UserController extends AbstractController
      * @return Response Réponse HTTP renvoyée au navigateur
      */
     #[Route('/user/delete', name: 'app_user_delete')]
-    public function deleteMyself(EntityManagerInterface $entityManager): Response
-    {
+    public function deleteMyself(
+        EntityManagerInterface $entityManager,
+        TokenStorageInterface $tokenStorage,
+        Request $request
+    ): Response {
         $user = $this->getUser();
-
+    
         $entityManager->remove($user);
         $entityManager->flush();
-
+    
         // Déconnecter l'utilisateur
-        $security->getTokenStorage()->setToken(null);
-
+        $tokenStorage->setToken(null);
+        $request->getSession()->invalidate();
+    
         return $this->redirectToRoute('app_home');
     }
+    
 }
