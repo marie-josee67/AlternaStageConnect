@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Postuler;
+use App\Form\FilterType;
 use App\Entity\Alternance;
 use App\Form\PostulerType;
 use App\Form\AlternanceType;
@@ -32,11 +33,41 @@ final class AlternancesController extends AbstractController
      * @return Response Réponse HTTP renvoyée au navigateur comportant la liste des alternances
      */ 
     #[Route('/alternances', name: 'app_alternances')]
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $alternanceRepository = $entityManager->getRepository(Alternance::class);
-        $alternances = $alternanceRepository->findAll();
+        // création du formulaire des filtreq avec l'option 'include_periode' à false pour ne pas avoir les périodes 
+        $formAlternanceFilter = $this->createForm(FilterType::class, null, [
+            'include_periode' => false, 
+        ]);
+        $formAlternanceFilter->handleRequest($request);
+
+        $queryBuilder = $entityManager->getRepository(Alternance::class)->createQueryBuilder('s');
+
+        // si le formulaire est soumis et bon on peut appliquer les filtres suivant
+        if ($formAlternanceFilter->isSubmitted() && $formAlternanceFilter->isValid()) {
+            $data = $formAlternanceFilter->getData();
+
+            // dd($data);
+            // filtrer par métier
+            if (!empty($data['Metier'])) {
+                $queryBuilder->andWhere('s.metier = :metier')
+                             ->setParameter('metier', $data['Metier']);
+            }
+
+            // filtrer par département
+            if (!empty($data['departement'])) {
+                $queryBuilder->andWhere('s.departement = :departement')
+                             ->setParameter('departement', $data['departement']);
+            }
+
+        }
+
+        // Exécuter la requête avec les filtres appliqués
+        $alternances = $queryBuilder->getQuery()->getResult();
+
+        // Renvoyer la vue avec le formulaire et les résultats filtrés
         return $this->render('alternances/index.html.twig', [
+            'formStageFilter' => $formAlternanceFilter->createView(),
             'alternances' => $alternances,
         ]);
     }

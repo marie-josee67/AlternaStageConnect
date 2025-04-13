@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Stage;
 use App\Form\StageType;
+use App\Form\FilterType; 
 use App\Entity\Postuler;
 use App\Form\PostulerType;
 use Symfony\Component\Mime\Email;
@@ -29,11 +30,46 @@ final class StagesController extends AbstractController
      * @return Response Réponse HTTP renvoyée au navigateur comportant la liste des stages
      */ 
     #[Route('/stages', name: 'app_stages')]
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $stageRepository = $entityManager->getRepository(Stage::class);
-        $stages = $stageRepository->findAll();
+        // création du formulaire des filtres avec l'option 'include_periode' à true pour avoir les périodes 
+        $formStageFilter = $this->createForm(FilterType::class, null, [
+            'include_periode' => true, 
+        ]);
+        $formStageFilter->handleRequest($request);
+
+        $queryBuilder = $entityManager->getRepository(Stage::class)->createQueryBuilder('s');
+
+        // si le formulaire est soumis et bon on peut appliquer les filtres suivant
+        if ($formStageFilter->isSubmitted() && $formStageFilter->isValid()) {
+            $data = $formStageFilter->getData();
+
+            // dd($data);
+            // filtrer par métier
+            if (!empty($data['Metier'])) {
+                $queryBuilder->andWhere('s.Metier = :Metier')
+                             ->setParameter('Metier', $data['Metier']);
+            }
+
+            // filtrer par département
+            if (!empty($data['departement'])) {
+                $queryBuilder->andWhere('s.departement = :departement')
+                             ->setParameter('departement', $data['departement']);
+            }
+
+            // filtrer par période
+            if (!empty($data['periode'])) {
+                $queryBuilder->andWhere('s.periode = :periode')
+                             ->setParameter('periode', $data['periode']);
+            }
+        }
+
+        // Exécuter la requête avec les filtres appliqués
+        $stages = $queryBuilder->getQuery()->getResult();
+
+        // Renvoyer la vue avec le formulaire et les résultats filtrés
         return $this->render('stages/index.html.twig', [
+            'formStageFilter' => $formStageFilter->createView(),
             'stages' => $stages,
         ]);
     }

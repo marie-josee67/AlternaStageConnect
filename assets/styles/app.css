@@ -157,11 +157,33 @@ body{
     /* border:2px solid darkmagenta; */
 }
 
-/* ************************************** Page - Alternancse bouton de rechecher filtre *************************************** */
-#testBouton{
+
+/* ************************************** Page - Stages filtre de recherche *************************************** */
+#filtres{
+    margin:0 6.2rem;
+    /* border:2px solid seagreen; */
+}
+
+#filtreRechercheStage{
     display: flex;
     flex-wrap: wrap;
     align-items: end;
     padding-left: 2rem;
-    /* border:2px solid rebeccapurple; */
+    padding-bottom: 0.9rem;
+    /* border:2px solid peru; */
+}
+
+/* ************************************** Page - Alternances filtre de recherche *************************************** */
+#filtreRechercheAlternance{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    padding-right: 5rem;
+    padding-bottom: 0.9rem;
+    /* border:2px solid rgb(12, 180, 18); */
+}
+
+#rechercheFiltre{
+    margin: 0 5rem 0 1rem;
+    /* border:2px solid darkorchid; */
 }
