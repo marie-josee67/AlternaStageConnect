@@ -55,31 +55,10 @@ class Alternance
     #[ORM\Column(length: 255)]
     private ?string $img = null;
 
-    #[ORM\ManyToOne(inversedBy: 'alternances')]
-    private ?Metier $Alternance = null;
-
-    /**
-     * @var Collection<int, Avis>
-     */
-    #[ORM\OneToMany(targetEntity: Avis::class, mappedBy: 'Avis')]
-    private Collection $avis;
-
-    /**
-     * @var Collection<int, Competences>
-     */
-    #[ORM\ManyToMany(targetEntity: Competences::class, mappedBy: 'Competences')]
-    private Collection $competences;
-
 
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
-
-    public function __construct()
-    {
-        $this->avis = new ArrayCollection();
-        $this->competences = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -242,75 +221,7 @@ class Alternance
         return $this;
     }
 
-    public function getAlternance(): ?Metier
-    {
-        return $this->Alternance;
-    }
-
-    public function setAlternance(?Metier $Alternance): static
-    {
-        $this->Alternance = $Alternance;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Avis>
-     */
-    public function getAvis(): Collection
-    {
-        return $this->avis;
-    }
-
-    public function addAvi(Avis $avi): static
-    {
-        if (!$this->avis->contains($avi)) {
-            $this->avis->add($avi);
-            $avi->setAvis($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAvi(Avis $avi): static
-    {
-        if ($this->avis->removeElement($avi)) {
-            // set the owning side to null (unless already changed)
-            if ($avi->getAvis() === $this) {
-                $avi->setAvis(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Competences>
-     */
-    public function getCompetences(): Collection
-    {
-        return $this->competences;
-    }
-
-    public function addCompetence(Competences $competence): static
-    {
-        if (!$this->competences->contains($competence)) {
-            $this->competences->add($competence);
-            $competence->addCompetence($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCompetence(Competences $competence): static
-    {
-        if ($this->competences->removeElement($competence)) {
-            $competence->removeCompetence($this);
-        }
-
-        return $this;
-    }
-
+    
     public function getUser(): ?User
     {
         return $this->user;
