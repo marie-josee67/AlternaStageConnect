@@ -103,6 +103,8 @@ final class UserController extends AbstractController
             throw $this->createAccessDeniedException("Vous devez être connecté pour accéder à votre profil.");
         }
 
+        // Afficher un message de succès
+        $this->addFlash('success', 'Votre compte à bien été créer !');
         return $this->render('user/profil.html.twig', [
             'user' => $user,
         ]);
@@ -185,7 +187,9 @@ final class UserController extends AbstractController
         // Déconnecter l'utilisateur
         $tokenStorage->setToken(null);
         $request->getSession()->invalidate();
-    
+
+        // Afficher un message de succès
+        $this->addFlash('success', 'Votre profil à bien été supprimer!');
         return $this->redirectToRoute('app_home');
     }
     
