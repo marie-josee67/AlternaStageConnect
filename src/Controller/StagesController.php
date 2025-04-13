@@ -6,8 +6,10 @@ use App\Entity\Stage;
 use App\Form\StageType;
 use App\Entity\Postuler;
 use App\Form\PostulerType;
+use Symfony\Component\Mime\Email;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -237,82 +239,108 @@ final class StagesController extends AbstractController
      */
 
      #[Route('/stages/postuler/{id<\d+>}', name: 'app_stages_postuler')]
-     public function postuler(Stage $stage, EntityManagerInterface $entityManager, Request $request): Response
-     {
-         if (!$stage) {
-             throw $this->createNotFoundException('Offre stageintrouvable');
-         }
-     
-         // Création de l'objet Postuler
-         $postuler = new Postuler();
-     
-         // Création et traitement du formulaire
-         $formStagePostuler = $this->createForm(PostulerType::class, $postuler);
-         $formStagePostuler->handleRequest($request);
-     
-         // On vérifie que le formulaire a été soumis et que les données sont valides
-         if ($formStagePostuler->isSubmitted() && $formStagePostuler->isValid()) {
-     
-             // Lier la candidature à l'alternance
-             $postuler->setStage($stage);
-     
-             // Récupérer les fichiers téléchargés par l'utilisateur
-             $cv = $formStagePostuler->get('cv')->getData();
-             $lettreMotivationFile = $formStagePostuler->get('lettreMotivation')->getData();
-     
-             // Gérer l'upload du CV si un fichier a été téléchargé
-             if ($cv) {
-                 $cvName = uniqid() . '.' . $cv->guessExtension();
-     
-                 try {
-                     // Déplacer le fichier dans le répertoire des uploads (assure-toi de définir le chemin dans services.yaml)
-                     $cv->move(
-                         $this->getParameter('cv_directory'),
-                         $cvName
-                     );
-     
-                     // Assigner le nom du fichier à l'entité Postuler
-                     $postuler->setCv($cvName);
-                 } catch (FileException $e) {
-                     $this->addFlash('error', 'Erreur lors de l\'enregistrement du CV');
-                 }
-             }
-     
-             // Gérer l'upload de la lettre de motivation si un fichier a été téléchargé
-             if ($lettreMotivationFile) {
-                 $lettreMotivationFileName = uniqid() . '.' . $lettreMotivationFile->guessExtension();
-     
-                 try {
-                     // Déplacer le fichier dans le répertoire des uploads
-                     $lettreMotivationFile->move(
-                         $this->getParameter('lettre_motivation_directory'),
-                         $lettreMotivationFileName
-                     );
-     
-                     // Assigner le nom du fichier à l'entité Postuler
-                     $postuler->setLettreMotivation($lettreMotivationFileName);
-                 } catch (FileException $e) {
-                     $this->addFlash('error', 'Erreur lors de l\'enregistrement de la lettre de motivation');
-                 }
-             }
-     
-             // Sauvegarde de l'objet Postuler en BDD
-             $entityManager->persist($postuler);
-     
-             // Mise à jour des données en base
-             $entityManager->flush();
-     
-             // Message de succès
-             $this->addFlash('success', 'Votre candidature à l\'alternance a été envoyée !');
-     
-             // Rediriger vers la page de l'annonce (ajuster le code de redirection si nécessaire)
-             return $this->redirectToRoute('app_stages_postuler', ['id' => $stage->getId()], 304);
-         }
-     
-         // Affichage du formulaire dans la vue
-         return $this->render('stages/postuler.html.twig', [
-             'form' => $formStagePostuler->createView(),
-             'stage' => $stage,  // Pour afficher des détails de l'alternance si nécessaire
-         ]);
-     }
+     public function postuler(
+        Stage $stage,
+        EntityManagerInterface $entityManager,
+        Request $request,
+        MailerInterface $mailer
+    ): Response {
+
+        // l'utilisateur doit être connecter sinon redirection avec message d'erreur
+        $user = $this->getUser();
+        if (!$user) {
+            $this->addFlash('error', 'Vous devez être connecté pour postuler !');
+            return $this->redirectToRoute('app_login'); 
+        }
+
+        if (!$stage) {
+            throw $this->createNotFoundException('Offre stage introuvable');
+        }
+
+        $postuler = new Postuler();
+        $formStagePostuler = $this->createForm(PostulerType::class, $postuler);
+        $formStagePostuler->handleRequest($request);
+
+        if ($formStagePostuler->isSubmitted() && $formStagePostuler->isValid()) {
+            $postuler->setStage($stage);
+
+            $cvFile = $formStagePostuler->get('cv')->getData();
+            $lettreMotivationFile = $formStagePostuler->get('lettreMotivation')->getData();
+
+            if ($cvFile) {
+                $cvFileName = uniqid() . '.' . $cvFile->guessExtension();
+
+                try {
+                    $cvFile->move(
+                        $this->getParameter('cv_directory'),
+                        $cvFileName
+                    );
+                    $postuler->setCv($cvFileName);
+                } catch (FileException $e) {
+                    $this->addFlash('error', 'Erreur lors de l\'enregistrement du CV');
+                }
+            }
+
+            if ($lettreMotivationFile) {
+                $lettreMotivationFileName = uniqid() . '.' . $lettreMotivationFile->guessExtension();
+
+                try {
+                    $lettreMotivationFile->move(
+                        $this->getParameter('lettre_motivation_directory'),
+                        $lettreMotivationFileName
+                    );
+                    $postuler->setLettreMotivation($lettreMotivationFileName);
+                } catch (FileException $e) {
+                    $this->addFlash('error', 'Erreur lors de l\'enregistrement de la lettre de motivation');
+                }
+            }
+
+            // envoi de l'e-mail à l'entreprise
+            $createur = $stage->getUser();
+            if ($createur) {
+                $email = (new Email())
+                    ->from($postuler->getEmail())
+                    ->to($createur->getEmail())
+                    ->subject('Nouvelle candidature pour votre offre : ' . $stage->getTitle())
+                    ->text(
+                        "Nom : " . $postuler->getName() . "\n" .
+                        "Email : " . $postuler->getEmail() . "\n" .
+                        "Adresse : " . $postuler->getAdresse() . "\n" .
+                        "Code postal : " . $postuler->getCodePostale() . "\n\n" .
+                        "Message :\n" . $postuler->getMessage()
+                    );
+
+                // ajout des pièces jointes
+                // pour le CV
+                $cvPath = $this->getParameter('cv_directory') . '/' . $postuler->getCv();
+                if (file_exists($cvPath)) {
+                    $email->attachFromPath($cvPath, 'CV_' . $postuler->getName() . '.pdf');
+                }
+
+                // pour la lm = lettre de motivation
+                $lmPath = $this->getParameter('lettre_motivation_directory') . '/' . $postuler->getLettreMotivation();
+                if (file_exists($lmPath)) {
+                    $email->attachFromPath($lmPath, 'Lettre_Motivation_' . $postuler->getName() . '.pdf');
+                }
+                // dd($email);
+                // gestion des erreurs
+                try {
+                    $mailer->send($email);
+                } catch (\Exception $e) {
+                    $this->addFlash('error', 'Erreur lors de l’envoi de l’email : ' . $e->getMessage());
+                }
+            }
+
+            $entityManager->persist($postuler);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Votre candidature à l\'alternance a été envoyée !');
+            return $this->redirectToRoute('app_stages', ['id' => $stage->getId()]);
+        }
+
+        return $this->render('stages/postuler.html.twig', [
+            'form' => $formStagePostuler->createView(),
+            'stage' => $stage,
+        ]);
+    }
 }

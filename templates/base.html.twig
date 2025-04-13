@@ -13,6 +13,16 @@
         {% endblock %}
     </head>
     <body>
+
+        {# message d'alerte pour toutes les pages si besoin #}
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label == 'error' ? 'danger' : label }}" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
         {# liens pour le header #}
         {% include('includes/nav.inc.twig') %}
 

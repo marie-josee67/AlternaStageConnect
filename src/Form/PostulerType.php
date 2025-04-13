@@ -47,9 +47,7 @@ class PostulerType extends AbstractType
             ])
             ->add('message', null, [
                 'label'=>"Message",
-            ])
-
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
