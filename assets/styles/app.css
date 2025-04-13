@@ -150,9 +150,18 @@ body{
     margin-top: auto; /* pousse le bouton en bas */
 }
 
-/* ************************************** Page - Alternancse et Stages Cards *************************************** */
+/* ************************************** Page - Alternances et Stages Cards *************************************** */
 
 #carte{
     min-height: 23rem;
     /* border:2px solid darkmagenta; */
+}
+
+/* ************************************** Page - Alternancse bouton de rechecher filtre *************************************** */
+#testBouton{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    padding-left: 2rem;
+    /* border:2px solid rebeccapurple; */
 }

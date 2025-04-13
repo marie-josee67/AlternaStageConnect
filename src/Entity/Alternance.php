@@ -60,6 +60,9 @@ class Alternance
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
+    #[ORM\Column(type:"string", length:255)]
+    private $departement;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -233,4 +236,17 @@ class Alternance
 
         return $this;
     }
+
+    public function getDepartement(): ?string
+    {
+        return $this->departement;
+    }
+
+    public function setDepartement(?string $departement): self
+    {
+        $this->departement = $departement;
+
+        return $this;
+    }
+
 }

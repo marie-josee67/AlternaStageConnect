@@ -9,6 +9,284 @@
             <p> Site fictif</p>
         </div>
     </div>
+    <div class="container mt-5">
+        <h2 class="mb-4">Filtrer les annonces</h2>
+        <form>
+            <div class="row g-3">
+                <!-- *********************************************** Métier ************************************************ -->
+                <div class="col-md-4">
+                    <label for="metier" class="form-label">Métier</label>
+                    <select class="form-select" id="metier" name="metier">
+                        <option value="">Tous les métiers</option>
+                        
+                        <!-- Informatique et Numérique -->
+                        <optgroup label="Informatique et Numérique">
+                            <option value="Developpeur">Développeur</option>
+                            <option value="Developpeur Full Stack">Développeur Full Stack</option>
+                            <option value="Developpeur Front-End">Développeur Front-End</option>
+                            <option value="Developpeur Back-End">Développeur Back-End</option>
+                            <option value="Administrateur Systèmes et Réseaux">Administrateur Systèmes et Réseaux</option>
+                            <option value="Ingénieur DevOps">Ingénieur DevOps</option>
+                            <option value="Data Scientist">Data Scientist</option>
+                            <option value="Analyste Cybersécurité">Analyste Cybersécurité</option>
+                            <option value="UX/UI Designer">UX/UI Designer</option>
+                            <option value="Chef de Projet IT">Chef de Projet IT</option>
+                        </optgroup>
+
+                        <!-- BTP et Construction -->
+                        <optgroup label="BTP et Construction">
+                            <option value="Architecte">Architecte</option>
+                            <option value="Maçon">Maçon</option>
+                            <option value="Électricien">Électricien</option>
+                            <option value="Plombier">Plombier</option>
+                            <option value="Ingénieur en BTP">Ingénieur en BTP</option>
+                            <option value="Conducteur de Travaux">Conducteur de Travaux</option>
+                            <option value="Charpentier">Charpentier</option>
+                        </optgroup>
+
+                        <!-- Santé et Paramédical -->
+                        <optgroup label="Santé et Paramédical">
+                            <option value="Médecin Généraliste">Médecin Généraliste</option>
+                            <option value="Infirmier">Infirmier</option>
+                            <option value="Chirurgien">Chirurgien</option>
+                            <option value="Pharmacien">Pharmacien</option>
+                            <option value="Sage-Femme">Sage-Femme</option>
+                            <option value="Kinésithérapeute">Kinésithérapeute</option>
+                            <option value="Psychologue">Psychologue</option>
+                        </optgroup>
+
+                        <!-- Commerce et Vente -->
+                        <optgroup label="Commerce et Vente">
+                            <option value="Commercial">Commercial</option>
+                            <option value="Représentant des Ventes">Représentant des Ventes</option>
+                            <option value="Responsable de Magasin">Responsable de Magasin</option>
+                            <option value="Chargé de Clientèle">Chargé de Clientèle</option>
+                            <option value="Directeur Commercial">Directeur Commercial</option>
+                            <option value="Agent Immobilier">Agent Immobilier</option>
+                        </optgroup>
+
+                        <!-- Industrie et Production -->
+                        <optgroup label="Industrie et Production">
+                            <option value="Technicien de Production">Technicien de Production</option>
+                            <option value="Opérateur de Machine">Opérateur de Machine</option>
+                            <option value="Soudeur">Soudeur</option>
+                            <option value="Ingénieur en Production">Ingénieur en Production</option>
+                            <option value="Mécanicien Industriel">Mécanicien Industriel</option>
+                        </optgroup>
+
+                        <!-- Transport et Logistique -->
+                        <optgroup label="Transport et Logistique">
+                            <option value="Chauffeur Routier">Chauffeur Routier</option>
+                            <option value="Livreur">Livreur</option>
+                            <option value="Magasinier">Magasinier</option>
+                            <option value="Responsable Logistique">Responsable Logistique</option>
+                            <option value="Pilote de Ligne">Pilote de Ligne</option>
+                        </optgroup>
+
+                        <!-- Hôtellerie et Restauration -->
+                        <optgroup label="Hôtellerie et Restauration">
+                            <option value="Chef Cuisinier">Chef Cuisinier</option>
+                            <option value="Serveur">Serveur</option>
+                            <option value="Réceptionniste">Réceptionniste</option>
+                            <option value="Pâtissier">Pâtissier</option>
+                            <option value="Sommelier">Sommelier</option>
+                        </optgroup>
+
+                        <!-- Communication et Marketing -->
+                        <optgroup label="Communication et Marketing">
+                            <option value="Chargé de Communication">Chargé de Communication</option>
+                            <option value="Community Manager">Community Manager</option>
+                            <option value="Chef de Produit">Chef de Produit</option>
+                            <option value="SEO Manager">SEO Manager</option>
+                            <option value="Graphiste">Graphiste</option>
+                            <option value="Publicitaire">Publicitaire</option>
+                        </optgroup>
+
+                        <!-- Éducation et Formation -->
+                        <optgroup label="Éducation et Formation">
+                            <option value="Professeur des Écoles">Professeur des Écoles</option>
+                            <option value="Formateur">Formateur</option>
+                            <option value="Éducateur Spécialisé">Éducateur Spécialisé</option>
+                            <option value="Moniteur">Moniteur</option>
+                        </optgroup>
+
+                        <!-- Juridique et Administratif -->
+                        <optgroup label="Juridique et Administratif">
+                            <option value="Avocat">Avocat</option>
+                            <option value="Notaire">Notaire</option>
+                            <option value="Secrétaire Administratif">Secrétaire Administratif</option>
+                            <option value="Juriste">Juriste</option>
+                            <option value="Huissier de Justice">Huissier de Justice</option>
+                        </optgroup>
+
+                        <!-- Agriculture et Environnement -->
+                        <optgroup label="Agriculture et Environnement">
+                            <option value="Agriculteur">Agriculteur</option>
+                            <option value="Vigneron">Vigneron</option>
+                            <option value="Ingénieur Agronome">Ingénieur Agronome</option>
+                            <option value="Technicien de l'Environnement">Technicien de l'Environnement</option>
+                        </optgroup>
+
+                        <!-- Sport et Animation -->
+                        <optgroup label="Sport et Animation">
+                            <option value="Coach Sportif">Coach Sportif</option>
+                            <option value="Animateur">Animateur</option>
+                            <option value="Éducateur Sportif">Éducateur Sportif</option>
+                            <option value="Préparateur Physique">Préparateur Physique</option>
+                        </optgroup>
+                    </select>
+                </div>
+                
+                <!-- ***************************************** Localisation ******************************************** -->
+                <div class="col-md-4">
+                    <label for="localisation" class="form-label">Localisation</label>
+                    <select class="form-select" id="localisation" name="localisation">
+                        <option value="">Partout</option>
+
+                        <!-- Auvergne -->
+                        <optgroup label="Auvergne">
+                            <option value="Allier">Allier (03)</option>
+                            <option value="Cantal">Cantal (15)</option>
+                            <option value="Haute-Loire">Haute-Loire (43)</option>
+                            <option value="Puy-de-Dôme">Puy-de-Dôme (63)</option>
+                        </optgroup>
+
+                        <!-- Bourgogne -->
+                        <optgroup label="Bourgogne">
+                            <option value="Côte-d'Or">Côte-d'Or (21)</option>
+                            <option value="Nièvre">Nièvre (58)</option>
+                            <option value="Saône-et-Loire">Saône-et-Loire (71)</option>
+                            <option value="Yonne">Yonne (89)</option>
+                        </optgroup>
+
+                        <!-- Bretagne -->
+                        <optgroup label="Bretagne">
+                            <option value="Côtes-d'Armor">Côtes-d'Armor (22)</option>
+                            <option value="Finistère">Finistère (29)</option>
+                            <option value="Ille-et-Vilaine">Ille-et-Vilaine (35)</option>
+                            <option value="Morbihan">Morbihan (56)</option>
+                        </optgroup>
+
+                        <!-- Centre -->
+                        <optgroup label="Centre">
+                            <option value="Cher">Cher (18)</option>
+                            <option value="Eure-et-Loir">Eure-et-Loir (28)</option>
+                            <option value="Indre">Indre (36)</option>
+                            <option value="Indre-et-Loire">Indre-et-Loire (37)</option>
+                            <option value="Loir-et-Cher">Loir-et-Cher (41)</option>
+                            <option value="Loiret">Loiret (45)</option>
+                        </optgroup>
+
+                        <!-- Corse -->
+                        <optgroup label="Corse">
+                            <option value="Corse-du-Sud">Corse-du-Sud (2A)</option>
+                            <option value="Haute-Corse">Haute-Corse (2B)</option>
+                        </optgroup>
+
+                        <!-- Grand Est -->
+                        <optgroup label="Grand Est">
+                            <option value="Ardennes">Ardennes (08)</option>
+                            <option value="Aube">Aube (10)</option>
+                            <option value="Marne">Marne (51)</option>
+                            <option value="Haute-Marne">Haute-Marne (52)</option>
+                            <option value="Meurthe-et-Moselle">Meurthe-et-Moselle (54)</option>
+                            <option value="Meuse">Meuse (55)</option>
+                            <option value="Moselle">Moselle (57)</option>
+                            <option value="Bas-Rhin">Bas-Rhin (67)</option>
+                            <option value="Haut-Rhin">Haut-Rhin (68)</option>
+                            <option value="Vosges">Vosges (88)</option>
+                        </optgroup>
+
+                        <!-- Hauts-de-France -->
+                        <optgroup label="Hauts-de-France">
+                            <option value="Aisne">Aisne (02)</option>
+                            <option value="Nord">Nord (59)</option>
+                            <option value="Oise">Oise (60)</option>
+                            <option value="Pas-de-Calais">Pas-de-Calais (62)</option>
+                            <option value="Somme">Somme (80)</option>
+                        </optgroup>
+
+                        <!-- Île-de-France -->
+                        <optgroup label="Île-de-France">
+                            <option value="Paris">Paris (75)</option>
+                            <option value="Seine-et-Marne">Seine-et-Marne (77)</option>
+                            <option value="Yvelines">Yvelines (78)</option>
+                            <option value="Essonne">Essonne (91)</option>
+                            <option value="Hauts-de-Seine">Hauts-de-Seine (92)</option>
+                            <option value="Seine-Saint-Denis">Seine-Saint-Denis (93)</option>
+                            <option value="Val-de-Marne">Val-de-Marne (94)</option>
+                            <option value="Val-d'Oise">Val-d'Oise (95)</option>
+                        </optgroup>
+
+                        <!-- Normandie -->
+                        <optgroup label="Normandie">
+                            <option value="Calvados">Calvados (14)</option>
+                            <option value="Eure">Eure (27)</option>
+                            <option value="Manche">Manche (50)</option>
+                            <option value="Orne">Orne (61)</option>
+                            <option value="Seine-Maritime">Seine-Maritime (76)</option>
+                        </optgroup>
+
+                        <!-- Nouvelle-Aquitaine -->
+                        <optgroup label="Nouvelle-Aquitaine">
+                            <option value="Charente">Charente (16)</option>
+                            <option value="Charente-Maritime">Charente-Maritime (17)</option>
+                            <option value="Corrèze">Corrèze (19)</option>
+                            <option value="Creuse">Creuse (23)</option>
+                            <option value="Dordogne">Dordogne (24)</option>
+                            <option value="Gironde">Gironde (33)</option>
+                            <option value="Landes">Landes (40)</option>
+                            <option value="Lot-et-Garonne">Lot-et-Garonne (47)</option>
+                            <option value="Pyrénées-Atlantiques">Pyrénées-Atlantiques (64)</option>
+                            <option value="Deux-Sèvres">Deux-Sèvres (79)</option>
+                            <option value="Vienne">Vienne (86)</option>
+                            <option value="Haute-Vienne">Haute-Vienne (87)</option>
+                        </optgroup>
+
+                        <!-- Occitanie -->
+                        <optgroup label="Occitanie">
+                            <option value="Ariège">Ariège (09)</option>
+                            <option value="Aude">Aude (11)</option>
+                            <option value="Aveyron">Aveyron (12)</option>
+                            <option value="Gard">Gard (30)</option>
+                            <option value="Haute-Garonne">Haute-Garonne (31)</option>
+                            <option value="Gers">Gers (32)</option>
+                            <option value="Hérault">Hérault (34)</option>
+                            <option value="Lot">Lot (46)</option>
+                            <option value="Lozère">Lozère (48)</option>
+                            <option value="Hautes-Pyrénées">Hautes-Pyrénées (65)</option>
+                            <option value="Pyrénées-Orientales">Pyrénées-Orientales (66)</option>
+                            <option value="Tarn">Tarn (81)</option>
+                            <option value="Tarn-et-Garonne">Tarn-et-Garonne (82)</option>
+                        </optgroup>
+
+                        <!-- Pays de la Loire -->
+                        <optgroup label="Pays de la Loire">
+                            <option value="Loire-Atlantique">Loire-Atlantique (44)</option>
+                            <option value="Maine-et-Loire">Maine-et-Loire (49)</option>
+                            <option value="Mayenne">Mayenne (53)</option>
+                            <option value="Sarthe">Sarthe (72)</option>
+                            <option value="Vendée">Vendée (85)</option>
+                        </optgroup>
+
+                        <!-- Outre-Mer -->
+                        <optgroup label="Outre-Mer">
+                            <option value="Guadeloupe">Guadeloupe (971)</option>
+                            <option value="Martinique">Martinique (972)</option>
+                            <option value="Guyane">Guyane (973)</option>
+                            <option value="La Réunion">La Réunion (974)</option>
+                            <option value="Mayotte">Mayotte (976)</option>
+                        </optgroup>
+                    </select>
+                </div>
+                
+                <!-- Période -->
+                <div  id="testBouton" class="col-md-4">
+                    <button type="submit" class="btn btn-primary">Rechercher</button>
+                </div>
+            </div>
+        </form>
+    </div>
    <div id="boutonAjoutAnnonce" class="row row-cols-4 ">
         <twig:BootstrapButton type="success" text="Ajouter une alternance" path="{{ path('app_alternances_create') }}" />
     </div>
