@@ -30,13 +30,14 @@ class UserType extends AbstractType
             ->add('plainPassword', PasswordType::class, [
                 'label' => 'Mot de passe',
                 'mapped' => false,
-                'attr' => ['placeholder' => 'Laisse vide pour ne pas modifier',
+                'required' => false,  // rendre non obligatoire
+                'empty_data' => '',
+                'attr' => [
+                    'placeholder' => 'Laisse vide pour ne pas modifier',
                     'autocomplete' => 'Nouveau mot de passe'
                 ],
                 'constraints' => [
-                    new NotBlank([
-                        'message' => "Merci d'entrer un mot de passe",
-                    ]),
+                    // Appliquer la contrainte uniquement si le mot de passe est saisi
                     new Length([
                         'min' => 16,
                         'minMessage' => 'Le mot de passe doit avoir au minimum {{ limit }} caractères pour être bien sécurisé',
@@ -44,9 +45,12 @@ class UserType extends AbstractType
                     ]),
                 ],
             ])
+            
             ->add('confirmPassword', PasswordType::class, [
                 'label' => 'Confirmer le mot de passe',
-                'mapped' => false, // Ce champ n'est pas lié à l'entité
+                'mapped' => false, // ce champ n'est pas lié à l'entité
+                'required' => false, // rendre non obligatoire
+                'empty_data' => '', // le champ peut être vide
                 'attr' => ['placeholder' => 'Confirmez votre mot de passe'],
                 'constraints' => [
                     new NotBlank([

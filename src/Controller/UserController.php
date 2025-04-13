@@ -127,40 +127,40 @@ final class UserController extends AbstractController
     {
         $user = $this->getUser();
 
+        // Créer et traiter le formulaire
         $formProfilEdit = $this->createForm(UserType::class, $user);
         $formProfilEdit->handleRequest($request);
 
         // Si le formulaire est soumis et valide
-    if ($formProfilEdit->isSubmitted() && $formProfilEdit->isValid()) {
-        // Récupérer le mot de passe en clair
-        $plainPassword = $formProfilEdit->get('plainPassword')->getData();
-        $confirmPassword = $formProfilEdit->get('confirmPassword')->getData();  // Récupérer la confirmation
+        if ($formProfilEdit->isSubmitted() && $formProfilEdit->isValid()) {
 
-        // Vérifier que les mots de passe correspondent
-        if ($plainPassword !== $confirmPassword) {
-            $formProfilEdit->get('confirmPassword')->addError(new FormError('Les mots de passe ne correspondent pas.'));
-        } else {
-            // Si les mots de passe correspondent, les hasher et les enregistrer
-            if (!empty($plainPassword)) {
-                $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
-                $user->setPassword($hashedPassword); // Mettre à jour le mot de passe
+            // Récupérer le mot de passe en clair et sa confirmation
+            $plainPassword = $formProfilEdit->get('plainPassword')->getData();
+            $confirmPassword = $formProfilEdit->get('confirmPassword')->getData();
+
+            // vérification du changement de mot de passe ou non
+            if ($plainPassword && $plainPassword !== $confirmPassword) {
+                //message d'erreur si le mot de passe et sa confirmation sont différentes
+                $formProfilEdit->get('confirmPassword')->addError(new FormError('Les mots de passe ne correspondent pas.'));
+            } else {
+                // Si l'utilisateur a rempli un mot de passe, il faut le hasher
+                if ($plainPassword) {
+                    $hashedPassword = $passwordHasher->hashPassword( $user, $plainPassword );
+                    $user->setPassword($hashedPassword);  // Mettre à jour le mot de passe
+                }
+
+                $entityManager->flush();
+                $this->addFlash('success', 'Profil mis à jour !');
+
+                return $this->redirectToRoute('app_user_profil');
             }
-
-            // Sauvegarder les modifications dans la base de données
-            $entityManager->flush();
-
-            // Afficher un message de succès
-            $this->addFlash('success', 'Profil mis à jour !');
-            return $this->redirectToRoute('app_user_profil');
         }
-    }
 
-
+        // Retourner la vue avec le formulaire
         return $this->render('user/edit.html.twig', [
             'formProfilEdit' => $formProfilEdit->createView(),
         ]);
     }
-
      /* ********************************** Supprimer le profil utilisateur ***************************************************  */
     /**
      * Route supprimer profil d'un utilisateur
