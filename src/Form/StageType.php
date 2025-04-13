@@ -192,7 +192,7 @@ class StageType extends AbstractType
                 'placeholder' => 'Choisissez un métier',
             ])
             ->add('img', FileType::class, [
-                'label' => 'Image de l\'annonce (JPG, PNG, WEBP)',
+                'label' => 'Image de l\'annonce (JPG, PNG, WEBP) *',
                 'mapped' => false, // pas lié directement à l'entité
                 'required' => true,
                 'constraints' => [
@@ -239,7 +239,11 @@ class StageType extends AbstractType
                 'label' => "Année d'expérience *",
                 'required' => true, 
             ])
-            ->add('reconversible')
+            ->add('reconversible', null, [
+                'label'=>"Appel d'offre renouvelable *",
+                'required' => false, 
+            ])
+
             // ajout du bouton
             ->add('submit', SubmitType::class, [
                 'label'=> 'Enregistrer'

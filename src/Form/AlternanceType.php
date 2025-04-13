@@ -195,7 +195,7 @@ class AlternanceType extends AbstractType
             ])
             
             ->add('img', FileType::class, [
-                'label' => 'Image de l\'annonce (JPG, PNG, WEBP)',
+                'label' => 'Image de l\'annonce (JPG, PNG, WEBP) *',
                 'mapped' => false, // pas lié directement à l'entité
                 'required' => true,
                 'constraints' => [
@@ -244,7 +244,10 @@ class AlternanceType extends AbstractType
                 'label'=>"Année(s) d'expérience *",
                 'required' => true, 
             ])
-            ->add('reconversible')
+            ->add('reconversible', null, [
+                'label'=>"Appel d'offre renouvelable *",
+                'required' => false, 
+            ])
 
             // ajout du bouton
             ->add('submit', SubmitType::class, [

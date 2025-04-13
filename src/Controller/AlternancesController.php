@@ -101,12 +101,6 @@ final class AlternancesController extends AbstractController
             $entityManager->flush();
         }
 
-        //message
-        $this->addFlash(
-            'success',
-            "La création a bien été enregistrées"
-        );
-
         return $this->render('alternances/create.html.twig', [
             'formCreate'    => $formAlternanceCreate,
             'request'       => $request,
