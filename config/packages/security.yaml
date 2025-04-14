@@ -38,12 +38,14 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
+        - { path: ^/user, roles: ROLE_ADMIN }
         # - { path: ^/user, roles: ROLE_GEST }
         # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
-        # - { path: ^/login, roles: PUBLIC_ACCESS }
-        # - { path: ^/register, roles: PUBLIC_ACCESS }
+        - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/login, roles: PUBLIC_ACCESS }
+        - { path: ^/register, roles: PUBLIC_ACCESS }
         # - { path: ^/verify, roles: PUBLIC_ACCESS }
+        - { path: ^/verify/email, roles: PUBLIC_ACCESS }
         # - { path: ^/, roles: IS_AUTHENTICATED_FULLY }
 
 when@test:
@@ -58,3 +60,7 @@ when@test:
                 cost: 4 # Lowest possible value for bcrypt
                 time_cost: 3 # Lowest possible value for argon
                 memory_cost: 10 # Lowest possible value for argon
+    role_hierarchy:
+        ROLE_SUPERADMIN: [ROLE_USER, ROLE_MODO, ROLE_ADMIN]
+        ROLE_ADMIN: [ROLE_USER, ROLE_MODO]
+        ROLE_MODO: [ROLE_USER]
