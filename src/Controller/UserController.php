@@ -13,6 +13,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+
 
 final class UserController extends AbstractController
 {
@@ -126,44 +129,48 @@ final class UserController extends AbstractController
     public function editProfile(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
     {
         $user = $this->getUser();
-
+    
+        if (!$user instanceof PasswordAuthenticatedUserInterface) {
+            throw new AccessDeniedException('Utilisateur non connecté ou type invalide.');
+        }
+    
         // Créer et traiter le formulaire
         $formProfilEdit = $this->createForm(UserType::class, $user);
         $formProfilEdit->handleRequest($request);
-
+    
         // Si le formulaire est soumis et valide
         if ($formProfilEdit->isSubmitted() && $formProfilEdit->isValid()) {
-
+    
             // Récupérer le mot de passe en clair et sa confirmation
             $plainPassword = $formProfilEdit->get('plainPassword')->getData();
             $confirmPassword = $formProfilEdit->get('confirmPassword')->getData();
-
+    
             // vérification du changement de mot de passe ou non
             if ($plainPassword && $plainPassword !== $confirmPassword) {
-                //message d'erreur si le mot de passe et sa confirmation sont différentes
                 $formProfilEdit->get('confirmPassword')->addError(new FormError('Les mots de passe ne correspondent pas.'));
             } else {
-                // Si l'utilisateur a rempli un mot de passe, il faut le hasher
                 if ($plainPassword) {
-                    $hashedPassword = $passwordHasher->hashPassword( $user, $plainPassword );
-                    $user->setPassword($hashedPassword);  // Mettre à jour le mot de passe
+                    $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
+                    /** @var \App\Entity\User $user */
+                    $user->setPassword($hashedPassword);
                 }
-
+    
                 $entityManager->flush();
                 $this->addFlash('success', 'Profil mis à jour !');
-
+    
                 return $this->redirectToRoute('app_user_profil');
             }
         }
-
-        // Retourner la vue avec le formulaire
+    
         return $this->render('user/edit.html.twig', [
             'formProfilEdit' => $formProfilEdit->createView(),
         ]);
     }
-     /* ********************************** Supprimer le profil utilisateur ***************************************************  */
+
+
+    /* ********************************** Supprimer le profil utilisateur ***************************************************  */
     /**
-     * Route supprimer profil d'un utilisateur
+     * Route supprimer le profil d'un utilisateur et le déconnecter automatiquement
      * 
      * @route user/delete
      * @name app_user_delete
@@ -192,5 +199,44 @@ final class UserController extends AbstractController
         $this->addFlash('success', 'Votre profil à bien été supprimer!');
         return $this->redirectToRoute('app_home');
     }
+
     
+    /* ********************************** Modification des rôles utilisateurs ***************************************************  */
+    /**
+     * Route modification des rôles utilisateurs
+     * 
+     * @route user/delete
+     * @name app_user_delete
+     * 
+     * @param User Entité User correspondante à l'ID transmise dans l'URL
+     * @param EntityManagerInterface $entityManager (dépendance) Gestionnaire d'entités
+     *
+     * @return Response Réponse HTTP renvoyée au navigateur
+     */
+    #[Route('/user/roles/{id<\d+>}', name: 'app_user_roles')]
+    public function setRoles(User $user, EntityManagerInterface $entityManager, Request $request): Response 
+    {
+        // dd($request->request);
+        $roles=[];
+        if($request->request->get('user-role-modal-'.$user->getId().'-modo'))
+        {
+            $roles[] = 'ROLE_MODO';
+        }
+
+        if($request->request->get('user-role-modal-'.$user->getId().'-admin'))
+        {
+            $roles[] = 'ROLE_ADMIN';
+        }
+
+        if($request->request->get('user-role-modal-'.$user->getId().'-super'))
+        {
+            $roles[] = 'ROLE_SUPER';
+        }
+
+        //mettre à jour le rôle de l'utilisateur
+        $user->setRoles($roles);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_user');
+    }
 }
