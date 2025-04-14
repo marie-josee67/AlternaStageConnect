@@ -134,7 +134,7 @@ body{
 /* ************************************** Page - Home cards *************************************** */
 
 .custom-card {
-    min-height: 23rem;
+    min-height: 25rem;
     display: flex;
     flex-direction: column;
     border:2px solid rebeccapurple; 
