@@ -16,11 +16,16 @@ final class Version20250413145528 extends AbstractMigration
     {
         return '';
     }
-
+    
     public function up(Schema $schema): void
     {
-        // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE alternance DROP periode, CHANGE departement departement VARCHAR(255) NOT NULL');
+        // Vérifie si la colonne 'periode' existe avant de tenter de la supprimer
+        if ($schema->getTable('alternance')->hasColumn('periode')) {
+            $this->addSql('ALTER TABLE alternance DROP periode');
+        }
+        
+        // Modification de la colonne 'departement'
+        $this->addSql('ALTER TABLE alternance CHANGE departement departement VARCHAR(255) NOT NULL');
     }
 
     public function down(Schema $schema): void
