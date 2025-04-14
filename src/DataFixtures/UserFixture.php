@@ -35,7 +35,7 @@ class UserFixture extends Fixture
 
         // utilisateur 2 
         $user = new User();
-        $user->setEmail("developpeuse@outlook.fr")
+        $user->setEmail("contact@dev.fr")
             ->setFirstname("Marie-josée")
             ->setLastname('Schmitt');
         $user->setPassword($this->userPasswordHasher->hashPassword($user, "azertyuiop123456/"));
