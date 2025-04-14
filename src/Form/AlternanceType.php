@@ -22,8 +22,8 @@ class AlternanceType extends AbstractType
                 'required' => true, // champ obligatoire
             ])
             ->add('Metier', ChoiceType::class, [
-                'required' => false,
-                'label' => 'Métier',
+                'required' => true,
+                'label' => 'Métier *',
                 'choices' => [
                     
                     'Informatique et Numérique' => [
@@ -194,8 +194,8 @@ class AlternanceType extends AbstractType
                 'placeholder' => 'Choisissez un métier',
             ])
             ->add('departement', ChoiceType::class, [
-                'required' => false,
-                'label' => 'Département',    
+                'required' => true,
+                'label' => 'Département *',    
                 'choices' => [
                     'Partout' => '',
                     'Auvergne' => [
