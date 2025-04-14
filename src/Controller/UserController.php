@@ -230,7 +230,7 @@ final class UserController extends AbstractController
 
         if($request->request->get('user-role-modal-'.$user->getId().'-super'))
         {
-            $roles[] = 'ROLE_SUPER';
+            $roles[] = 'ROLE_SUPERADMIN';
         }
 
         //mettre à jour le rôle de l'utilisateur
