@@ -31,7 +31,7 @@ final class AlternanceVoter extends Voter
         switch ($attribute) {
             case self::UPDATE:
                 // Si le user est le créateur
-                if ($subject->getCreatedBy() === $user) {
+                if ($subject->getUser()?->getId() === $user->getId()) {
                     return true;
                 }
     
@@ -43,7 +43,7 @@ final class AlternanceVoter extends Voter
                 break;
             case self::DELETE:
                 // Si le user est le créateur
-                if ($subject->getCreatedBy() === $user) {
+                if ($subject->getUser()?->getId() === $user->getId()) {
                     return true;
                 }
     

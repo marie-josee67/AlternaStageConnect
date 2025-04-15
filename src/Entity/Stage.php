@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 
-use App\Repository\StageRepository;
+use App\Entity\User;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\StageRepository;
 
 #[ORM\Entity(repositoryClass: StageRepository::class)]
 class Stage
@@ -228,10 +229,11 @@ class Stage
         return $this;
     }
 
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
+   /** @return \App\Entity\User|null */
+public function getUser(): ?User
+{
+    return $this->user;
+}
 
     public function setUser(?User $user): static
     {

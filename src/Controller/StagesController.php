@@ -120,11 +120,13 @@ final class StagesController extends AbstractController
             }
         
             // Associer l'utilisateur connecté à l'alternance
-            $stage->setUser($this->getUser());
-            
+            $user = $this->getUser();
+$stage->setUser($user);
+
+            $stage->setCreatedBy($this->getUser());
            //prépare les données à être sauvegarder en base
            $entityManager->persist($stage);
-
+           dd($stage->getCreatedBy());
            //enregistre les données en base et créer l'Id unique
            $entityManager->flush();
         

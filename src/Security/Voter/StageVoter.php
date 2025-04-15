@@ -31,10 +31,9 @@ final class StageVoter extends Voter
         switch ($attribute) {
             case self::UPDATE:
                 // Si le user est le créateur
-                if ($subject->getCreatedBy() === $user) {
+                if ($subject->getUser()?->getId() === $user->getId()) {
                     return true;
                 }
-    
                 // Si le user a un rôle élevé
                 if (in_array('ROLE_MODO', $roles) || in_array('ROLE_ADMIN', $roles) || in_array('ROLE_SUPERADMIN', $roles)) {
                     return true;
@@ -43,7 +42,7 @@ final class StageVoter extends Voter
                 break;
             case self::DELETE:
                 // Si le user est le créateur
-                if ($subject->getCreatedBy() === $user) {
+                if ($subject->getUser()?->getId() === $user->getId()) {
                     return true;
                 }
     
