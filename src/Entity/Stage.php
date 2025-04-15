@@ -64,6 +64,9 @@ class Stage
     #[ORM\Column(type:"string", length:255)]
     private $periode;
 
+    #[ORM\ManyToOne(inversedBy: 'stages')]
+    private ?User $createdBy = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -257,6 +260,18 @@ class Stage
     public function setPeriode(?string $periode): self
     {
         $this->periode = $periode;
+
+        return $this;
+    }
+
+    public function getCreatedBy(): ?User
+    {
+        return $this->createdBy;
+    }
+
+    public function setCreatedBy(?User $createdBy): static
+    {
+        $this->createdBy = $createdBy;
 
         return $this;
     }
