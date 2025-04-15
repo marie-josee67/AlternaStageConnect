@@ -22,7 +22,7 @@ final class StageVoter extends Voter
     {
         $user = $token->getUser();
     
-        if (!$user instanceof UserInterface) {
+        if (!$user instanceof \App\Entity\User) {
             return false;
         }
     
