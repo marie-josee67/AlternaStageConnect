@@ -161,10 +161,9 @@ final class AlternancesController extends AbstractController
         ]);
     }
     
-
     /* ********************************** modifier une alternance ***************************************************  */
     /**
-     * Page  de modification des détails d'une alternance
+     * Page de modification des détails d'une alternance
      * 
      * @route alternance/edit/{id}
      * @name app_alternance_edit

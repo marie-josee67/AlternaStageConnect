@@ -45,7 +45,6 @@
                     <twig:block name="buttons">
                         <twig:BootstrapButton type="primary" text="Détails" path="{{ path('app_stages_show', { id: stage.id }) }}" />
                         <twig:BootstrapButton type="warning" text="Modifier"path="{{ path('app_stages_edit', { id: stage.id }) }}" />
-                        {# <twig:BootstrapButton type="danger" text="Supprimer"path="{{ path('app_stages_delete', { id: stage.id }) }}" /> #}
                     </twig:block> 
                     </twig:BootstrapCard>
                 </div>
@@ -53,7 +52,4 @@
             <p> Aucune stage n'a été trouvée </P
             {% endfor %}
     </div>
-
-    {# {{dump(stages)}} #}
-
 {% endblock %}

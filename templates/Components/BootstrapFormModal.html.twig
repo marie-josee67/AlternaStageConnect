@@ -12,9 +12,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
           <form id="{{ modalId }}-form" name="{{ modalId }}-form" method="POST" action="{{ formAction }}">
-            <div class="modal-body">
-            {# {{ dump(modalId) }} #}
-            
+            <div class="modal-body"
                 {% block content %} {% endblock %}
             </div>
             <div class="modal-footer">
