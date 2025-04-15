@@ -2,9 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\User;
 use App\Entity\Stage;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Stage>
@@ -15,7 +16,15 @@ class StageRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Stage::class);
     }
-
+    public function findAllowed(User $user): array
+    {
+        // retourne toutes les photos dont l'utilisateur $user a accès
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.createdBy = :user')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult();
+    }
     //    /**
     //     * @return Stage[] Returns an array of Stage objects
     //     */

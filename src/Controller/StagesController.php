@@ -4,8 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Stage;
 use App\Form\StageType;
-use App\Form\FilterType; 
 use App\Entity\Postuler;
+use App\Form\FilterType; 
 use App\Form\PostulerType;
 use Symfony\Component\Mime\Email;
 use Doctrine\ORM\EntityManagerInterface;
@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
@@ -181,6 +182,8 @@ final class StagesController extends AbstractController
      * @return Response Réponse HTTP renvoyée au navigateur avec les détails de la photo
      */
     #[Route('/stages/edit/{id<\d+>}', name: 'app_stages_edit', methods: ['GET', 'POST'])]
+    #[IsGranted('STAGE_UPDATE', subject: 'stage', message:" Droit insufffisants ! ")]
+
     public function edit(Stage $stage, Request $request, EntityManagerInterface $entityManager): Response
     {
         // Création du formulaire pour l'affichage
@@ -241,6 +244,7 @@ final class StagesController extends AbstractController
      * @return Response Réponse HTTP renvoyée au navigateur
      */
     #[Route('/stages/delete/{id<\d+>}', name: 'app_stages_delete')]
+    #[IsGranted('STAGE_DELETE', subject: 'stage', message:" Droit insufffisants ! ")]
     public function delete(Stage $stage, EntityManagerInterface $entityManager): Response
     {
         try {

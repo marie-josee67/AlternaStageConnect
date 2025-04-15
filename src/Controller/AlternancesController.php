@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
@@ -35,7 +36,7 @@ final class AlternancesController extends AbstractController
     #[Route('/alternances', name: 'app_alternances')]
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
-        // création du formulaire des filtreq avec l'option 'include_periode' à false pour ne pas avoir les périodes 
+        // création du formulaire des filtres avec l'option 'include_periode' à false pour ne pas avoir les périodes 
         $formAlternanceFilter = $this->createForm(FilterType::class, null, [
             'include_periode' => false, 
         ]);
@@ -72,7 +73,7 @@ final class AlternancesController extends AbstractController
         ]);
     }
 
-    /* ********************************** creation d'une alternance ***************************************************  */
+    /* ********************************** création d'une alternance ***************************************************  */
     /**
      * @route alternances/create
      * @name app_alternances_create
@@ -175,6 +176,7 @@ final class AlternancesController extends AbstractController
      * @return Response Réponse HTTP renvoyée au navigateur avec les détails de la photo
      */
     #[Route('/alternances/edit/{id<\d+>}', name: 'app_alternances_edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ALTERNANCE_UPDATE', subject: 'alternance', message:" Droit insufffisants ! ")]
     public function edit(Alternance $alternance, Request $request, EntityManagerInterface $entityManager): Response
     {
         // Création du formulaire pour l'affichage
@@ -219,6 +221,7 @@ final class AlternancesController extends AbstractController
      * @return Response Réponse HTTP renvoyée au navigateur
      */
     #[Route('/alternances/delete/{id<\d+>}', name: 'app_alternances_delete')]
+    #[IsGranted('ALTERNANCE_DELETE', subject: 'alternance', message:" Droit insufffisants ! ")]
     public function delete(Alternance $alternance, EntityManagerInterface $entityManager): Response
     {
         try {

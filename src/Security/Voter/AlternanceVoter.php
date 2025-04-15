@@ -8,36 +8,45 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 final class AlternanceVoter extends Voter
 {
-    public const EDIT = 'POST_EDIT';
-    public const VIEW = 'POST_VIEW';
+    public const UPDATE = 'ALTERNANCE_UPDATE';
+    public const DELETE = 'ALTERNANCE_DELETE';
+
 
     protected function supports(string $attribute, mixed $subject): bool
     {
         // remplacez par votre propre logique
         // https://symfony.com/doc/current/security/voters.html
-        return in_array($attribute, [self::EDIT, self::VIEW])
+        return in_array($attribute, [self::UPDATE, self::DELETE])
             && $subject instanceof \App\Entity\Alternance;
     }
 
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {
+        // utilisateur connecter
         $user = $token->getUser();
 
+        // vérification si l'utilisateur est bien connecter
         // Si l'utilisateur est anonyme, n'accordez pas l'accès
         if (!$user instanceof UserInterface) {
             return false;
         }
 
-        // ... (Vérifier les conditions et revenir à la permission de la subvention) ...
+        // ... (Vérifier les conditions et valide la permission de la requête) ...
         switch ($attribute) {
-            case self::EDIT:
-                // logique pour déterminer si l'utilisateur peut modifier
-                // Renvoie vrai ou faux
+
+            // droit de mise à jour
+            case self::UPDATE:
+                //est-ce que le createby d'alternance === utilisateur connecté
+                /** @var Alternance $subject */
+                if($subject->getCreatedBy() === $user) { return true; }
+                
                 break;
 
-            case self::VIEW:
-                // logique pour déterminer si l'utilisateur peut afficher
-                // Renvoie vrai ou faux
+            // droit de suppression
+            case self::DELETE:
+                /** @var Alternance $subject */
+                if($subject->getCreatedBy() === $user) { return true; }
+                
                 break;
         }
 

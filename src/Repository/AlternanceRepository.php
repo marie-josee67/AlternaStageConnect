@@ -16,7 +16,15 @@ class AlternanceRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Alternance::class);
     }
-
+    public function findAllowed(User $user): array
+    {
+        // retourne toutes les photos dont l'utilisateur $user a accès
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.createdBy = :user')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult();
+    }
     //    /**
     //     * @return Alternance[] Returns an array of Alternance objects
     //     */

@@ -38,10 +38,11 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
+        - { path: ^/user/profil, roles: PUBLIC_ACCESS }
         - { path: ^/user, roles: ROLE_ADMIN }
         # - { path: ^/user, roles: ROLE_GEST }
         # - { path: ^/admin, roles: ROLE_ADMIN }
-        - { path: ^/profile, roles: ROLE_USER }
+        # - { path: ^/profile, roles: ROLE_USER }
         - { path: ^/login, roles: PUBLIC_ACCESS }
         - { path: ^/register, roles: PUBLIC_ACCESS }
         # - { path: ^/verify, roles: PUBLIC_ACCESS }
