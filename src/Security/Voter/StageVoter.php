@@ -45,7 +45,6 @@ final class StageVoter extends Voter
                 if ($subject->getUser()?->getId() === $user->getId()) {
                     return true;
                 }
-    
                 // Si le user a un rôle élevé
                 if (in_array('ROLE_MODO', $roles) || in_array('ROLE_ADMIN', $roles) || in_array('ROLE_SUPERADMIN', $roles)) {
                     return true;
