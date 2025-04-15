@@ -61,6 +61,6 @@ when@test:
                 time_cost: 3 # Lowest possible value for argon
                 memory_cost: 10 # Lowest possible value for argon
     role_hierarchy:
-        ROLE_SUPERADMIN: [ROLE_USER, ROLE_MODO, ROLE_ADMIN]
-        ROLE_ADMIN: [ROLE_USER, ROLE_MODO]
         ROLE_MODO: [ROLE_USER]
+        ROLE_ADMIN: [ROLE_USER, ROLE_MODO]
+        ROLE_SUPERADMIN: [ROLE_USER, ROLE_MODO, ROLE_ADMIN]
