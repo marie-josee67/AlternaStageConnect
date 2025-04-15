@@ -18,9 +18,9 @@ class StageRepository extends ServiceEntityRepository
     }
     public function findAllowed(User $user): array
     {
-        // retourne toutes les photos dont l'utilisateur $user a accès
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.createdBy = :user')
+        // retourne toutes les annonces dont l'utilisateur $user a accès
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.createdBy = :user')
             ->setParameter('user', $user)
             ->getQuery()
             ->getResult();

@@ -65,7 +65,7 @@ class Alternance
 
     #[ORM\ManyToOne(inversedBy: 'alternances')]
     private ?User $createdBy = null;
-
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -251,7 +251,6 @@ class Alternance
 
         return $this;
     }
-
     public function getCreatedBy(): ?User
     {
         return $this->createdBy;

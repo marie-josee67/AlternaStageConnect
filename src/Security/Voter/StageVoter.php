@@ -2,9 +2,10 @@
 
 namespace App\Security\Voter;
 
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Authorization\Voter\Voter;
+use App\Entity\Stage;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Voter;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 final class StageVoter extends Voter
 {
@@ -13,42 +14,47 @@ final class StageVoter extends Voter
 
     protected function supports(string $attribute, mixed $subject): bool
     {
-        // remplacez par votre propre logique
-        // https://symfony.com/doc/current/security/voters.html
-        return in_array($attribute, [[self::UPDATE, self::DELETE]])
-            && $subject instanceof \App\Entity\Stage;
+        return in_array($attribute, [self::UPDATE, self::DELETE])
+            && $subject instanceof Stage;
     }
 
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {
-              // utilisateur connecter
-              $user = $token->getUser();
-
-              // vérification si l'utilisateur est bien connecter
-              // Si l'utilisateur est anonyme, n'accordez pas l'accès
-              if (!$user instanceof UserInterface) {
-                  return false;
-              }
-      
-              // ... (Vérifier les conditions et valide la permission de la requête) ...
-              switch ($attribute) {
-      
-                  // droit de mise à jour
-                  case self::UPDATE:
-                      //est-ce que le createby d'alternance === utilisateur connecté
-                      /** @var Stage $subject */
-                      if($subject->getCreatedBy() === $user) { return true; }
-                      
-                      break;
-      
-                  // droit de suppression
-                  case self::DELETE:
-                      /** @var Stage $subject */
-                      if($subject->getCreatedBy() === $user) { return true; }
-                      
-                      break;
-              }
-      
-              return false;
+        $user = $token->getUser();
+    
+        if (!$user instanceof UserInterface) {
+            return false;
+        }
+    
+        $roles = $token->getRoleNames();
+    
+        switch ($attribute) {
+            case self::UPDATE:
+                // Si le user est le créateur
+                if ($subject->getCreatedBy() === $user) {
+                    return true;
+                }
+    
+                // Si le user a un rôle élevé
+                if (in_array('ROLE_MODO', $roles) || in_array('ROLE_ADMIN', $roles) || in_array('ROLE_SUPERADMIN', $roles)) {
+                    return true;
+                }
+    
+                break;
+            case self::DELETE:
+                // Si le user est le créateur
+                if ($subject->getCreatedBy() === $user) {
+                    return true;
+                }
+    
+                // Si le user a un rôle élevé
+                if (in_array('ROLE_MODO', $roles) || in_array('ROLE_ADMIN', $roles) || in_array('ROLE_SUPERADMIN', $roles)) {
+                    return true;
+                }
+    
+                break;
+        }
+    
+        return false;
     }
 }
