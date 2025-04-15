@@ -8,13 +8,14 @@ use App\Repository\UserRepository;
 use Symfony\Component\Form\FormError;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 
 final class UserController extends AbstractController
@@ -126,6 +127,7 @@ final class UserController extends AbstractController
      * @return Response Réponse HTTP renvoyée au navigateur
      */
     #[Route('/user/edit', name: 'app_user_edit')]
+    #[IsGranted('USER_UPDATE', subject: 'user', message:" Droit insufffisants ! ")]
     public function editProfile(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
     {
         $user = $this->getUser();
@@ -181,6 +183,7 @@ final class UserController extends AbstractController
      * @return Response Réponse HTTP renvoyée au navigateur
      */
     #[Route('/user/delete', name: 'app_user_delete')]
+    #[IsGranted('USER_DELETE', subject: 'user', message:" Droit insufffisants ! ")]
     public function deleteMyself(
         EntityManagerInterface $entityManager,
         TokenStorageInterface $tokenStorage,

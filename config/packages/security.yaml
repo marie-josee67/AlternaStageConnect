@@ -48,6 +48,7 @@ security:
         # - { path: ^/verify, roles: PUBLIC_ACCESS }
         - { path: ^/verify/email, roles: PUBLIC_ACCESS }
         # - { path: ^/, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/user/edit, roles: ROLE_USER }
 
 when@test:
     security:
