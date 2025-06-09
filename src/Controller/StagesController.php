@@ -121,12 +121,14 @@ final class StagesController extends AbstractController
         
             // Associer l'utilisateur connecté à l'alternance
             $user = $this->getUser();
-$stage->setUser($user);
+            $stage->setUser($user);
 
             $stage->setCreatedBy($this->getUser());
+
            //prépare les données à être sauvegarder en base
            $entityManager->persist($stage);
-           dd($stage->getCreatedBy());
+        //    dd($stage->getCreatedBy());
+
            //enregistre les données en base et créer l'Id unique
            $entityManager->flush();
         
@@ -138,7 +140,7 @@ $stage->setUser($user);
             return $this->redirectToRoute('app_stages'); 
         }
 
-        // message
+      // message
         $this->addFlash(
             'success',
             "La création a bien été enregistrées"
